@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'TiltPrism';
+    src: url('fonts/Tilt-Prism.woff2') format('woff2');
+    font-style: normal;
+}
+
+
+html {
+    font-size: min(calc(11px + 1.2vw), 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 300;
+    overflow-y: scroll;
+}
+
+/* Minhas classes */
+.site-padding {
+    padding: 20px;
+}
+
+.container {
+    border: 1px solid white;
+    min-width: 22rem;
+    max-width: 58rem;
+    width: 100%;
+    /* margin-bottom: 4rem; */
+    text-align: center;
+}
+
+.fake-table {
+    text-align: center;
+    display: flex;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+    align-items: center;
+    width: inherit;
+}
+
+.fake-table-row {
+    flex: 1;
+    padding: 1.4rem;
+}
+
+.border-left {
+    border-left: 1px solid white;
+}
+
+
+.title {
+    line-height: 5rem;
+    font-family: 'TiltPrism';
+    font-size: 4.5rem;
+    font-variation-settings: 'HROT' -30, 'VROT' -28;
+    transition: font-variation-settings 0.9s ease;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.title:hover {
+    font-variation-settings: 'HROT' -30, 'VROT' 22;
+    
+}
+
+.title:visited {
+    color: white;
+}
