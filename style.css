@@ -4,74 +4,135 @@
   font-style: normal;
 }
 @font-face {
-    font-family: "KodeMono"; 
-    src: url('fonts/KodeMono.woff2') format("woff2");
-    font-style: normal;
-  }
+  font-family: "KodeMono"; 
+  src: url('fonts/KodeMono.woff2') format("woff2");
+  font-style: normal;
+}
 
 :root {
   --black: black;
-  --white: white;       
+  --white: white;  
+  --green: seagreen;    
+  --purple: mediumpurple;
 }
-    
+  
 html {
   font-size: min(calc(11px + 1.2vw), 20px);
 }
 
-body {
+body {  
   background-color: var(--black);
   color: var(--white);
-  font-family: "KodeMono";
+  font-family: "KodeMono", monospace;      
   font-weight: 480;
   overflow-y: scroll;
-}
-
-/* Minhas classes */
-.site-padding {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: 20px;
 }
 
 .container {
   border: 1px solid var(--white);
   width: 100%;
-  max-width: 58rem;
   margin: 0 auto;
-  text-align: center;
   box-sizing: border-box;
+  display: flex;
 }
 
-.fake-table {
-  text-align: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  border-top: 1px solid var(--white);
+.site-padding {
+  padding: 20px;
   width: 100%;
+  display: flex;
+  gap: 20px;
 }
 
-.fake-table-row {
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  border: 1px solid var(--white);
+  height: fit-content;
+} 
+
+.sidebar-item {
+  text-align: center;
   font-size: calc(0.2rem + 80%);
   padding: 1rem 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.bottom-border {
+  border-bottom: 1px solid var(--white);
+}
+
+.bottom-border:last-child {
   border-bottom: none;
 }
 
-.border-left {
-  border-left: 1px solid var(--white);
+.sidebar-item:hover {
+  background-color: var(--white);
+  color: var(--black);
 }
 
 .title {
-  line-height: normal;
-  font-family: "TiltPrism";
-  font-size: clamp(3.5rem, 8vw, 4.5rem);
+  line-height: 0.5;
+  font-family: "TiltPrism", sans-serif;
+  font-size: clamp(3rem, 8vw, 9rem);
   font-variation-settings: "HROT" -30, "VROT" -28;
   transition: font-variation-settings 0.9s ease;
   text-decoration: none;
-  display: block;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 5%;
 }
 
 .title:hover {
   font-variation-settings: "HROT" 0, "VROT" 0;
 }
 
-.title:visited {
-  color: var(--white);
+.body-text {
+  text-align: left;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.invisible-container {
+  width: 100%;
+  margin: 20px;
+  box-sizing: border-box;
+}
+
+.color-green {
+  color: var(--green);
+}
+
+.color-purple {
+  color: var(--purple);
+}
+
+@media (max-width: 768px) {
+  .site-padding {
+      flex-direction: column;
+  }
+
+  .sidebar {  
+      width: 100%;
+  }
+
+  .main-content {
+      padding: 20px;
+  }
 }
