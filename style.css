@@ -25,19 +25,15 @@ body {
   color: var(--white);
   font-family: "KodeMono", monospace;      
   font-weight: 480;
-  overflow-y: scroll;
-  margin: 0;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px;
+  padding: 0.3%;
 }
 
 .container {
   border: 1px solid var(--white);
   width: 100%;
-  margin: 0 auto;
   box-sizing: border-box;
   display: flex;
 }
