@@ -36,17 +36,25 @@
                 </div>
             </nav>
             <main class="main-content container">
-                <a class="jotaverse" href="index.html">
-                    JOTAVERSE
-                </a>
+                <canvas class="canvas" id="canvas" width="1000" height="1000" oncontextmenu="event.preventDefault()"></canvas></canvas>  
                 <div>
-                    <p class="body-text invisible-container">Hi, I'm <span class="color-green"> João Pimentel 🤙 </span></p>
-                    <p class="body-text invisible-container">I'm a <span class="color-purple">full-stack developer</span> with a strong interest in <span class="color-purple">cybersecurity</span>.</p>
-                    <p class="body-text invisible-container">I like to understand systems deeply, explore vulnerabilities, and learn about both attack and defense. Here, I'll share some of the concepts and studies I'm working on.</p>
-                    <p class="body-text invisible-container">I also enjoy <span class="color-purple">game development</span>. I work with Unity, and I have plans to create my own 2D engine focused on more realistic physics simulation. For me, programming isn't just about building things—it's about understanding how they work under the hood. </p>
+                    <p class="body-text invisible-container">Click and drag to add water or solid walls.</p>
+                    <p class="body-text invisible-container">Spacebar to toggle between solid walls (white) and water (blue)</p>
+                    <p class="body-text invisible-container">Backspace</strong> to toggle delete mode    </p>
                 </div>
             </main>
         </div>
     </div>
 </body>
+<script>
+    var Module = {
+      preRun: [],
+      postRun: [],
+      canvas: (function() {
+        var canvas = document.getElementById('canvas');
+        return canvas;
+      })()
+    };  
+  </script>
+  <script src="./fluid-sim/fluid-sim.js"></script>      
 </html>
