@@ -14,8 +14,10 @@
   --dark-grey: #2f2f2f;
   --light-grey: #969696;
   --white: white;  
-  --green: seagreen;    
-  --purple: mediumpurple;
+  --green: #2e8b57;    
+  --purple: #9370d8;
+  --orange: #ec8e2c;
+  --agua: #4ec7b7;
 }
   
 html {
@@ -136,12 +138,28 @@ body {
   box-sizing: border-box;
 }
 
+.color-orange {
+  color: var(--orange);
+}
+
 .color-green {
   color: var(--green);
 }
 
 .color-purple {
   color: var(--purple);
+}
+
+.color-agua {
+  color: var(--agua);
+}
+
+.link {
+  text-decoration: underline;
+}
+
+.link:visited {
+  text-decoration: underline;
 }
 
 .canvas {
