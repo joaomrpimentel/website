@@ -70,12 +70,12 @@ function setupPageLogic() {
     const commandInput = document.getElementById('command-input');
     if (commandInput) {
         const commandMap = {
-            '/sobre': 'sobre.html',
-            '/projetos': 'projetos.html',
-            '/contato': 'contato.html',
-            '/s': 'sobre.html',
-            '/p': 'projetos.html',
-            '/c': 'contato.html'
+            '/about': 'about.html',
+            '/projects': 'projects.html',
+            '/contact': 'contact.html',
+            '/s': 'about.html',
+            '/p': 'projects.html',
+            '/c': 'contact.html'
         };
 
         commandInput.focus();
