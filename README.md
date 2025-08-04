@@ -1,2 +1,2 @@
 Personal site and portfolio.
-100% handmade and without any dependencies
+Using some cool things i liked

@@ -1,54 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Main page.">
-    <title>Jotaverse</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Jotaverse - Hub</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=neue-montreal@400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <div class="site-padding">
-            <nav class="sidebar">
-                <div class="sidebar-item" data-title="HOME">
-                    <div class="fake-sidebar-item-content" onclick="window.location.href='index.html'">
-                        Hello! I'm <span class="color-purple">João Pimentel</span>, an Information Systems student and cybersecurity enthusiast.
-                    </div>
-                </div>
-                <div class="sidebar-item" data-title="CONTACTS">
-                    <div class="sidebar-item-content">
-                        ** Work in progress **
-                    </div>
-                </div>
-                <div class="sidebar-item" data-title="ARTICLES">
-                    <div class="sidebar-item-content">
-                        ** You didn't see this ** 
-                    </div>
-                </div> 
-                <div class="sidebar-item" data-title="PROJECTS">
-                    <div class="sidebar-item-content" onclick="window.location.href='this-website.html'">
-                        This Website
-                    </div>
-                    <div class="sidebar-item-content" onclick="window.location.href='fluid-sim.html'">
-                        Fluid Simulation
-                    </div>
-                </div>
-            </nav>
-            <main class="main-content container">
-                <a class="jotaverse" href="index.html">
-                    JOTAVERSE
+<body class="page-hub">
+
+    <canvas id="bg-canvas"></canvas>
+    
+    <header class="top-header">
+        <div class="header-element">Jotaverse</div>
+        <div class="header-element">João Pimentel</div>
+    </header>
+
+    <!-- Main Hub -->
+    <div id="hub-container">
+        <div class="hub">
+            <input type="text" id="command-input" placeholder="Type a command (e.g., /about)" autocomplete="off">
+            <div class="hub-commands-list">
+                <a href="about.html" class="hub-command">
+                    <span class="command-text">About Me</span>
+                    <span class="command-shortcut">/about</span>
                 </a>
-                <div>
-                    <p class="body-text invisible-container">Hi, I'm <span class="color-green"> João Pimentel 🤙 </span></p>
-                    <p class="body-text invisible-container">I'm a <span class="color-purple">full-stack developer</span> with a strong interest in <span class="color-purple">cybersecurity</span>.</p>
-                    <p class="body-text invisible-container">I like to understand systems deeply, explore vulnerabilities, and learn about both attack and defense. Here, I'll share some of the concepts and studies I'm working on.</p>
-                    <p class="body-text invisible-container">I also enjoy <span class="color-purple">game development</span>. I work with Unity, and I have plans to create my own 2D engine with <span class="color-orange">C</span>, focused on more realistic physics simulation. For me, programming isn't just about building things—it's about understanding how they work under the hood. </p>
-                    <p class="body-text invisible-container">Feel free to connect on <a href="https://www.linkedin.com/in/jo%C3%A3o-marcos-pimentel-269a99296/" target="_blank" class="link color-orange" >LinkedIn</a>.</p>
-                    <p class="body-text invisible-container">You can always check my work on <a href="https://github.com/joaomrpimentel" target="_blank" style="text-decoration: underline;" class="color-green" >GitHub</a>.</p>
+                <a href="projects.html" class="hub-command">
+                    <span class="command-text">Projects</span>
+                    <span class="command-shortcut">/projects</span>
+                </a>
+                <a href="contact.html" class="hub-command">
+                    <span class="command-text">Contact</span>
+                    <span class="command-shortcut">/contact</span>
+                </a>
+            </div>
+            <div>
+                <div class="easy-links-header">Quick Links</div>
+                <div class="easy-links-list">
+                    <a href="https://github.com/joaomrpimentel" target="_blank" class="easy-link">
+                        <span>GitHub</span>
+                        <span>&rarr;</span>
+                    </a>
+                    <a href="#" class="easy-link">
+                        <span>???</span>
+                        <span>&rarr;</span>
+                    </a>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
+    
+    <!-- Scripts -->
+    <script type="importmap">
+        { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+    </script>
+    <script type="module" src="script.js" defer></script>
+
 </body>
 </html>
