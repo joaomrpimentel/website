@@ -54,7 +54,14 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--main-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
+
+.header-element:hover {
+    color: var(--text-light);
+}
+
 
 /* Main Hub Container */
 #hub-container {
