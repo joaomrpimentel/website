@@ -10,46 +10,49 @@
 </head>
 <body class="page-hub">
 
-    <canvas id="bg-canvas"></canvas>
-    <canvas id="matrix-canvas"></canvas>
-    
-    <header class="top-header">
-        <a href="index.html" class="header-element">Jotaverse</a>
-        <a href="https://github.com/joaomrpimentel" target="_blank" class="header-element">João Pimentel</a>
-    </header>
+    <div id="page-transition-overlay"></div>
+    <div id="page-wrapper">
+        <canvas id="bg-canvas"></canvas>
+        <canvas id="matrix-canvas"></canvas>
+        
+        <header class="top-header">
+            <a href="index.html" class="header-element">Jotaverse</a>
+            <a href="https://github.com/joaomrpimentel" target="_blank" class="header-element">João Pimentel</a>
+        </header>
 
-    <!-- Main Hub -->
-    <div id="hub-container">
-        <div class="hub">
-            <div class="command-input-wrapper">
-                <input type="text" id="command-input" placeholder="Type a command (e.g., /about)" autocomplete="off">
-                <span id="command-suggestion-inline"></span>
-            </div>
-            <div class="hub-commands-list">
-                <a href="about.html" class="hub-command">
-                    <span class="command-text">About Me</span>
-                    <span class="command-shortcut">/about</span>
-                </a>
-                <a href="projects.html" class="hub-command">
-                    <span class="command-text">Projects</span>
-                    <span class="command-shortcut">/projects</span>
-                </a>
-                <a href="contact.html" class="hub-command">
-                    <span class="command-text">Contact</span>
-                    <span class="command-shortcut">/contact</span>
-                </a>
-            </div>
-            <div>
-                <div class="easy-links-header">Quick Links</div>
-                <div class="easy-links-list">
-                    <a href="https://github.com/joaomrpimentel" target="_blank" class="easy-link">
-                        <span>GitHub</span>
-                        <span>&rarr;</span>
+        <!-- Main Hub -->
+        <div id="hub-container">
+            <div class="hub">
+                <div class="command-input-wrapper">
+                    <input type="text" id="command-input" placeholder="Type a command (e.g., /about)" autocomplete="off">
+                    <span id="command-suggestion-inline"></span>
+                </div>
+                <div class="hub-commands-list">
+                    <a href="about.html" class="hub-command">
+                        <span class="command-text">About Me</span>
+                        <span class="command-shortcut">/about</span>
                     </a>
-                    <a href="#" class="easy-link">
-                        <span>???</span>
-                        <span>&rarr;</span>
+                    <a href="projects.html" class="hub-command">
+                        <span class="command-text">Projects</span>
+                        <span class="command-shortcut">/projects</span>
                     </a>
+                    <a href="contact.html" class="hub-command">
+                        <span class="command-text">Contact</span>
+                        <span class="command-shortcut">/contact</span>
+                    </a>
+                </div>
+                <div>
+                    <div class="easy-links-header">Quick Links</div>
+                    <div class="easy-links-list">
+                        <a href="https://github.com/joaomrpimentel" target="_blank" class="easy-link">
+                            <span>GitHub</span>
+                            <span>&rarr;</span>
+                        </a>
+                        <a href="#" class="easy-link">
+                            <span>???</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

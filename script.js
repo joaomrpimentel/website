@@ -67,6 +67,31 @@ function animate() {
     if(blobRenderer) blobRenderer.render(blobScene, blobCamera);
 }
 
+function pageTransition(url) {
+    const overlay = document.getElementById('page-transition-overlay');
+    const pageWrapper = document.getElementById('page-wrapper');
+    gsap.to(pageWrapper, { opacity: 0, duration: 0.2, onComplete: () => {
+        window.location.href = url;
+    }});
+}
+
+function initPageTransitions() {
+    const pageWrapper = document.getElementById('page-wrapper');
+    const overlay = document.getElementById('page-transition-overlay');
+
+    gsap.to(pageWrapper, { opacity: 1, duration: 0.2, delay: 0.1 });
+    gsap.to(overlay, { opacity: 0, duration: 0.2 });
+    
+    const links = document.querySelectorAll('a:not([target="_blank"]):not([href^="#"])');
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            pageTransition(link.href);
+        });
+    });
+}
+
+
 function setupPageLogic() {
     const hubElement = document.querySelector('.hub');
     const commandInput = document.getElementById('command-input');
@@ -109,7 +134,7 @@ function setupPageLogic() {
                 }
 
                 if (commandMap[value]) {
-                    window.location.href = commandMap[value];
+                    pageTransition(commandMap[value]);
                 } else {
                     hubElement.classList.add('hub-error', 'hub-shake');
                     setTimeout(() => {
@@ -152,7 +177,11 @@ window.addEventListener('resize', onWindowResize);
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    initThreeBlob();
-    animate();
+    if(document.body.classList.contains('page-hub')) {
+        initThreeBlob();
+        animate();
+    }
     setupPageLogic();
+    
+    initPageTransitions();
 });
