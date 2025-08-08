@@ -73,7 +73,7 @@ function setupPageLogic() {
             '/about': 'about.html',
             '/projects': 'projects.html',
             '/contact': 'contact.html',
-            '/s': 'about.html',
+            '/a': 'about.html',
             '/p': 'projects.html',
             '/c': 'contact.html'
         };
