@@ -4,10 +4,13 @@
     --bg-color: #1a1a1a;
     --panel-bg-color: #1c1c1c;
     --border-color: rgba(0, 255, 65, 0.4);
+    --error-color: rgba(255, 70, 70, 0.8);
+    --error-bg-color: rgba(75, 28, 28, 0.5);
     --bg-hover-color: rgba(0, 255, 65, 0.1);
     --text-light: #d4d4d8; /* neutral-300 */
     --text-medium: #a1a1aa; /* neutral-400 */
     --text-dark: #525252;   /* neutral-600 */
+    --text-suggestion: rgba(0, 179, 45, 0.4);
 }
 
 * {
@@ -87,22 +90,61 @@ body.page-hub #hub-container {
     -webkit-backdrop-filter: blur(20px);
     padding: 0;
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.hub.hub-error {
+    border-color: var(--error-color);
+    background-color: var(--error-bg-color);
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.hub-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.command-input-wrapper {
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
+}
+
+#command-input, #command-suggestion-inline {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+    font-family: 'Neue Montreal', sans-serif;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
 #command-input {
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 1.5rem;
-    font-size: 1.125rem;
     color: var(--main-color);
-    outline: none;
-    font-family: 'Neue Montreal', sans-serif;
+    position: relative;
+    z-index: 2;
 }
+
+#command-suggestion-inline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--text-suggestion);
+    pointer-events: none;
+    z-index: 1;
+    white-space: pre;
+}
+
 #command-input::placeholder {
     color: var(--border-color);
 }
+
 .hub-commands-list {
     padding: 0.5rem;
 }
@@ -167,7 +209,6 @@ body.page-hub #hub-container {
     position: relative;
     z-index: 30;
     min-height: 100vh;
-    /* FIX: Removed background-color to show body's pattern */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -249,7 +290,7 @@ body.page-hub #hub-container {
     cursor: pointer;
     text-decoration: none;
     border: 1px solid var(--border-color);
-    margin-bottom: 1.5rem; /* Space between boxes */
+    margin-bottom: 1.5rem;
     transition: background-color 0.2s;
 }
 
@@ -276,7 +317,7 @@ body.page-hub #hub-container {
 
 .project-details {
     transition: all 0.4s ease-in-out;
-    max-height: 10rem; /* FIX: Details are visible by default on mobile */
+    max-height: 10rem;
     overflow: hidden;
     color: var(--text-light);
     padding-left: 0.25rem;
@@ -363,14 +404,14 @@ body.page-hub #hub-container {
     .project-title {
         font-size: 2.5rem;
     }
+    #command-input, #command-suggestion-inline {
+        padding: 1.5rem;
+        font-size: 1.5rem;
+    }
     .hub-command {
          padding: 1rem 1.5rem;
     }
     .command-text {
-        font-size: 1.5rem;
-    }
-    #command-input {
-        padding: 1.5rem;
         font-size: 1.5rem;
     }
     .project-details-inner {
@@ -378,7 +419,6 @@ body.page-hub #hub-container {
         align-items: center;
     }
     
-    /* FIX: Hides project details on desktop, reveals on hover */
     .project-details {
         max-height: 0;
     }

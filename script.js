@@ -67,25 +67,59 @@ function animate() {
 }
 
 function setupPageLogic() {
+    const hubElement = document.querySelector('.hub');
     const commandInput = document.getElementById('command-input');
-    if (commandInput) {
-        const commandMap = {
-            '/about': 'about.html',
-            '/projects': 'projects.html',
-            '/contact': 'contact.html',
-            '/a': 'about.html',
-            '/p': 'projects.html',
-            '/c': 'contact.html'
-        };
+    const suggestionElement = document.getElementById('command-suggestion-inline');
+
+    if (hubElement && commandInput && suggestionElement) {
+        const commands = [
+            { command: '/about', href: 'about.html' },
+            { command: '/projects', href: 'projects.html' },
+            { command: '/contact', href: 'contact.html' },
+            { command: '/s', href: 'about.html' },
+            { command: '/p', href: 'projects.html' },
+            { command: '/c', href: 'contact.html' }
+        ];
+        const commandMap = Object.fromEntries(commands.map(c => [c.command, c.href]));
 
         commandInput.focus();
+        commandInput.addEventListener('input', () => {
+            const value = commandInput.value.trim().toLowerCase();
+            suggestionElement.textContent = '';
+
+            if (value.length > 1 && value.startsWith('/')) {
+                const match = commands.find(c => c.command.startsWith(value));
+                if (match && match.command !== value) {
+                    suggestionElement.textContent = match.command;
+                }
+            }
+        });
 
         commandInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
+                e.preventDefault();
                 const value = commandInput.value.trim().toLowerCase();
                 if (commandMap[value]) {
                     window.location.href = commandMap[value];
+                } else {
+                    hubElement.classList.add('hub-error');
+                    hubElement.classList.add('hub-shake');
+                    setTimeout(() => {
+                        hubElement.classList.remove('hub-error');
+                        hubElement.classList.remove('hub-shake');
+                    }, 500);
                 }
+                return;
+            }
+
+            if (e.key === 'Tab' && suggestionElement.textContent) {
+                e.preventDefault();
+                commandInput.value = suggestionElement.textContent;
+                suggestionElement.textContent = '';
+            }
+
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Backspace'].includes(e.key)) {
+                 setTimeout(() => commandInput.dispatchEvent(new Event('input')), 0);
             }
         });
     }

@@ -20,7 +20,10 @@
     <!-- Main Hub -->
     <div id="hub-container">
         <div class="hub">
-            <input type="text" id="command-input" placeholder="Type a command (e.g., /about)" autocomplete="off">
+            <div class="command-input-wrapper">
+                <input type="text" id="command-input" placeholder="Type a command (e.g., /about)" autocomplete="off">
+                <span id="command-suggestion-inline"></span>
+            </div>
             <div class="hub-commands-list">
                 <a href="about.html" class="hub-command">
                     <span class="command-text">About Me</span>
