@@ -3,6 +3,7 @@ import { SimplexNoise } from 'three/addons/math/SimplexNoise.js';
 import { startMatrixEffect } from './matrix.js';
 
 let blob, blobScene, blobCamera, blobRenderer;
+let animationFrameId;
 const originalBlobColor = new THREE.Color(0x00ff41);
 const errorBlobColor = new THREE.Color(0xff4141);
 
@@ -31,13 +32,15 @@ function initThreeBlob() {
     blobScene = new THREE.Scene();
     blobCamera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     blobCamera.position.set(0, 0, 8);
-    blobRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    blobRenderer.setPixelRatio(window.devicePixelRatio);
+    blobRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
+    
+    blobRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
     blobRenderer.setSize(window.innerWidth, window.innerHeight);
 
     const isMobile = window.innerWidth < 768;
     const blobSize = isMobile ? 2.2 : 3;
-    const blobGeometry = new THREE.IcosahedronGeometry(blobSize, 64);
+    const blobDetail = isMobile ? 48 : 64; 
+    const blobGeometry = new THREE.IcosahedronGeometry(blobSize, blobDetail);
     blobGeometry.userData.originalPositions = blobGeometry.attributes.position.clone();
     const blobMaterial = new THREE.ShaderMaterial({
         vertexShader: `
@@ -78,7 +81,7 @@ function initThreeBlob() {
 const clock = new THREE.Clock();
 const simplex = new SimplexNoise();
 function animate() {
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate); 
     const elapsedTime = clock.getElapsedTime();
     
     if (blob && blob.geometry.userData.originalPositions) {
@@ -98,9 +101,21 @@ function animate() {
     if(blobRenderer) blobRenderer.render(blobScene, blobCamera);
 }
 
+function cleanupThreeScene() {
+    if (blob) {
+        blob.geometry.dispose();
+        blob.material.dispose();
+    }
+    if (blobRenderer) {
+        blobRenderer.dispose();
+    }
+    cancelAnimationFrame(animationFrameId);
+}
+
 function pageTransition(url) {
     const pageWrapper = document.getElementById('page-wrapper');
     gsap.to(pageWrapper, { opacity: 0, duration: 0.3, onComplete: () => {
+        cleanupThreeScene();
         window.location.href = url;
     }});
 }
@@ -130,7 +145,7 @@ function setupPageLogic() {
             { command: '/about', href: 'about.html' },
             { command: '/projects', href: 'projects.html' },
             { command: '/contact', href: 'contact.html' },
-            { command: '/s', href: 'about.html' },
+            { command: '/a', href: 'about.html' },
             { command: '/p', href: 'projects.html' },
             { command: '/c', href: 'contact.html' },
             { command: '/matrix', href: '#' }
@@ -166,7 +181,7 @@ function setupPageLogic() {
                 } else {
                     hubElement.classList.add('hub-error', 'hub-shake');
                     animateBlobColor(errorBlobColor);
-                    animateNoise(1.0, 0.1); // Agita o blob rapidamente
+                    animateNoise(0.7, 0.1); // Agita o blob rapidamente
                     setTimeout(() => {
                         hubElement.classList.remove('hub-error', 'hub-shake');
                         animateBlobColor(originalBlobColor);
@@ -189,7 +204,7 @@ function setupPageLogic() {
 
         const interactiveLinks = document.querySelectorAll('.hub-command, .easy-link');
         interactiveLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => animateNoise(0.45));
+            link.addEventListener('mouseenter', () => animateNoise(0.42));
             link.addEventListener('mouseleave', () => animateNoise(0.35));
         });
     }
@@ -211,6 +226,15 @@ function onWindowResize() {
     });
 }
 
+function handleVisibilityChange() {
+    if (!animationFrameId) return;
+    if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+    } else {
+        animate();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if(document.body.classList.contains('page-hub')) {
         initThreeBlob();
@@ -218,4 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setupPageLogic();
     initPageTransitions();
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange, false);
 });
