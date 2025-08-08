@@ -34,7 +34,9 @@ export function startMatrixEffect() {
     const nums = '0123456789';
     const alphabet = katakana + latin + nums;
 
-    const fontSize = 16;
+    const isMobile = window.innerWidth < 768;
+    const fontSize = isMobile ? 12 : 16; 
+
     const columns = Math.floor(matrixCanvas.width / fontSize);
     
     const message = "The Jotaverse has you...";
@@ -69,7 +71,6 @@ export function startMatrixEffect() {
             if (drop.isLanded) {
                 ctx.fillStyle = '#fff';
                 ctx.fillText(drop.targetChar, i * fontSize, targetRow * fontSize);
-                continue;
             }
 
             ctx.fillStyle = '#0F0';
