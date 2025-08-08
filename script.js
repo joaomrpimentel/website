@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { SimplexNoise } from 'three/addons/math/SimplexNoise.js';
+import { startMatrixEffect } from './matrix.js';
 
 let blobScene, blobCamera, blobRenderer, blob;
 function initThreeBlob() {
@@ -78,7 +79,8 @@ function setupPageLogic() {
             { command: '/contact', href: 'contact.html' },
             { command: '/s', href: 'about.html' },
             { command: '/p', href: 'projects.html' },
-            { command: '/c', href: 'contact.html' }
+            { command: '/c', href: 'contact.html' },
+            { command: '/matrix', href: '#' }
         ];
         const commandMap = Object.fromEntries(commands.map(c => [c.command, c.href]));
 
@@ -99,14 +101,19 @@ function setupPageLogic() {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const value = commandInput.value.trim().toLowerCase();
+                
+                if (value === '/matrix') {
+                    startMatrixEffect();
+                    commandInput.value = '';
+                    return;
+                }
+
                 if (commandMap[value]) {
                     window.location.href = commandMap[value];
                 } else {
-                    hubElement.classList.add('hub-error');
-                    hubElement.classList.add('hub-shake');
+                    hubElement.classList.add('hub-error', 'hub-shake');
                     setTimeout(() => {
-                        hubElement.classList.remove('hub-error');
-                        hubElement.classList.remove('hub-shake');
+                        hubElement.classList.remove('hub-error', 'hub-shake');
                     }, 500);
                 }
                 return;
