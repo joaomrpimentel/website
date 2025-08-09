@@ -245,3 +245,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.addEventListener('visibilitychange', handleVisibilityChange, false);
 });
+
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        console.log('Page loaded from bfcache. Re-initializing scene.');
+        const overlay = document.getElementById('page-transition-overlay');
+        if (overlay) {
+            overlay.style.opacity = 0;
+        }
+
+        if (document.body.classList.contains('page-hub')) {
+            cleanupThreeScene();
+            initThreeBlob();
+            animate();
+        }
+        
+        const pageWrapper = document.getElementById('page-wrapper');
+        if (pageWrapper) {
+            pageWrapper.style.opacity = 1;
+        }
+    }
+});
