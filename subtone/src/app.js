@@ -119,6 +119,10 @@ class ImageProcessorApp {
         });
 
         this.dom.controlsMain.addEventListener('input', (e) => {
+            if (e.target.type === 'file') {
+                return;
+            }
+            
             const { id, type, value, checked } = e.target;
             let finalValue;
 
@@ -203,6 +207,8 @@ class ImageProcessorApp {
         Object.keys(currentState).forEach(key => {
             const control = document.getElementById(key);
             if (control) {
+                if (control.type === 'file') return;
+
                 if (control.type === 'checkbox') {
                     control.checked = currentState[key];
                 } else { // Funciona para range e text

@@ -10,10 +10,10 @@ export const getInitialState = () => ({
     
     // Configurações de pré-processamento aplicadas antes de qualquer efeito.
     preprocessing: {
-        blackPoint: 0,
-        whitePoint: 255,
+        contrast: 1,
         gamma: 1,
         grain: 0,
+        clarity: 0,
     },
     
     // Contém o estado individual de cada efeito.
@@ -22,10 +22,12 @@ export const getInitialState = () => ({
     effects: {
         dithering: {
             pixelSize: 1,
-            isColorMode: false,
-            ditheringPattern: 'F-S',
+            usePalette: true,
+            ditheringPattern: 'Bayer',
             threshold: 128,
-            colorCount: 8
+            colorCount: 8,
+            palette: 'GameBoy',
+            glow: 0,
         },
         crt: {
             crtDistortion: 0.03,
