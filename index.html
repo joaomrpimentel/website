@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,14 @@
     <link href="https://api.fontshare.com/v2/css?f[]=neue-montreal@400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="page-hub">
 
     <div id="page-transition-overlay"></div>
     <div id="page-wrapper">
         <canvas id="bg-canvas"></canvas>
         <canvas id="matrix-canvas"></canvas>
-        
+
         <header class="top-header">
             <a href="index.html" class="header-element">Jotaverse</a>
             <a href="https://github.com/joaomrpimentel" target="_blank" class="header-element">João Pimentel</a>
@@ -24,7 +26,8 @@
         <div id="hub-container">
             <div class="hub">
                 <div class="command-input-wrapper">
-                    <input type="text" id="command-input" placeholder="Type a command (e.g., /about)" autocomplete="off">
+                    <input type="text" id="command-input" placeholder="Type a command (e.g., /about)"
+                        autocomplete="off">
                     <span id="command-suggestion-inline"></span>
                 </div>
                 <div class="hub-commands-list">
@@ -48,8 +51,8 @@
                             <span>GitHub</span>
                             <span>&rarr;</span>
                         </a>
-                        <a href="#" class="easy-link">
-                            <span>???</span>
+                        <a href="https://lume.jotaverse.com.br/u/jota" target="_blank" class="easy-link">
+                            <span>Lume</span>
                             <span>&rarr;</span>
                         </a>
                     </div>
@@ -57,7 +60,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Scripts -->
     <script type="importmap">
         { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
@@ -65,4 +68,5 @@
     <script type="module" src="script.js" defer></script>
 
 </body>
+
 </html>
