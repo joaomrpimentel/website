@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jotaverse - Hub</title>
+    <title>Jotaverse — Explore</title>
+    <meta name="description" content="The Jotaverse — João Pimentel's portfolio. An immersive hub of projects and experiments.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <link href="https://api.fontshare.com/v2/css?f[]=neue-montreal@400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -12,8 +13,11 @@
 
 <body class="page-hub">
 
+    <div id="crt-overlay"></div>
     <div id="page-transition-overlay"></div>
+
     <div id="page-wrapper">
+        <canvas id="starfield-canvas"></canvas>
         <canvas id="bg-canvas"></canvas>
         <canvas id="matrix-canvas"></canvas>
 
@@ -22,46 +26,27 @@
             <a href="https://github.com/joaomrpimentel" target="_blank" class="header-element">João Pimentel</a>
         </header>
 
-        <!-- Main Hub -->
         <div id="hub-container">
-            <div class="hub">
-                <div class="command-input-wrapper">
-                    <input type="text" id="command-input" placeholder="Type a command (e.g., /about)"
-                        autocomplete="off">
-                    <span id="command-suggestion-inline"></span>
-                </div>
-                <div class="hub-commands-list">
-                    <a href="about.html" class="hub-command">
-                        <span class="command-text">About Me</span>
-                        <span class="command-shortcut">/about</span>
-                    </a>
-                    <a href="projects.html" class="hub-command">
-                        <span class="command-text">Projects</span>
-                        <span class="command-shortcut">/projects</span>
-                    </a>
-                    <a href="contact.html" class="hub-command">
-                        <span class="command-text">Contact</span>
-                        <span class="command-shortcut">/contact</span>
-                    </a>
-                </div>
-                <div>
-                    <div class="easy-links-header">Quick Links</div>
-                    <div class="easy-links-list">
-                        <a href="https://github.com/joaomrpimentel" target="_blank" class="easy-link">
-                            <span>GitHub</span>
-                            <span>&rarr;</span>
-                        </a>
-                        <a href="https://lume.jotaverse.com.br/u/jota" target="_blank" class="easy-link">
-                            <span>Lume</span>
-                            <span>&rarr;</span>
-                        </a>
-                    </div>
+            <div class="stage">
+                <div class="core-ring"></div>
+                <svg id="constellation-lines"></svg>
+                <nav class="constellation" aria-label="Explore"></nav>
+            </div>
+
+            <div class="console-wrap">
+                <div class="console-line">
+                    <span class="console-prompt">&gt;</span>
+                    <span class="console-input-cell">
+                        <input type="text" id="command-input" placeholder="type a command" autocomplete="off" spellcheck="false" aria-label="Command console">
+                        <span id="command-suggestion-inline"></span>
+                    </span>
                 </div>
             </div>
         </div>
+
+        <button id="sound-toggle" type="button" aria-label="Enable sound">×</button>
     </div>
 
-    <!-- Scripts -->
     <script type="importmap">
         { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
     </script>
