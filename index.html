@@ -4,54 +4,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jotaverse — Explore</title>
-    <meta name="description" content="The Jotaverse — João Pimentel's portfolio. An immersive hub of projects and experiments.">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <link href="https://api.fontshare.com/v2/css?f[]=neue-montreal@400,500,700&display=swap" rel="stylesheet">
+    <title>Jotaverse / João Pimentel</title>
+    <meta name="description" content="The Jotaverse / João Pimentel, DevOps team lead and cybersecurity enthusiast. Projects and experiments.">
+    <meta property="og:title" content="Jotaverse / João Pimentel">
+    <meta property="og:description" content="DevOps & security. Projects and experiments.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="page-hub">
+<body>
+    <div class="dither" aria-hidden="true"></div>
 
-    <div id="crt-overlay"></div>
-    <div id="page-transition-overlay"></div>
+    <header class="nav">
+        <a href="#top" class="nav-brand" aria-label="Jotaverse home">
+            <img src="pantocrator.png" alt="Jotaverse">
+        </a>
+        <nav class="nav-links" aria-label="Sections">
+            <a href="#about">ABOUT</a>
+            <a href="#work">WORK</a>
+            <a href="#contact">CONTACT</a>
+            <a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener">GITHUB ↗</a>
+        </nav>
+    </header>
 
-    <div id="page-wrapper">
-        <canvas id="starfield-canvas"></canvas>
-        <canvas id="bg-canvas"></canvas>
-        <canvas id="matrix-canvas"></canvas>
+    <main id="top">
 
-        <header class="top-header">
-            <a href="index.html" class="header-element">Jotaverse</a>
-            <a href="https://github.com/joaomrpimentel" target="_blank" class="header-element">João Pimentel</a>
-        </header>
-
-        <div id="hub-container">
-            <div class="stage">
-                <div class="core-ring"></div>
-                <svg id="constellation-lines"></svg>
-                <nav class="constellation" aria-label="Explore"></nav>
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="hero">
+            <div class="hero-meta">
+                <span>EST. ES / BRASIL</span>
+                <span>23°S · 45°W</span>
             </div>
 
-            <div class="console-wrap">
-                <div class="console-line">
-                    <span class="console-prompt">&gt;</span>
-                    <span class="console-input-cell">
-                        <input type="text" id="command-input" placeholder="type a command" autocomplete="off" spellcheck="false" aria-label="Command console">
-                        <span id="command-suggestion-inline"></span>
-                    </span>
+            <h1 class="visually-hidden">Jotaverse</h1>
+            <div class="masthead" role="img" aria-label="Jotaverse">
+                <pre id="ascii" aria-hidden="true">                          (`·.                )\‚                      '         '                    º                     °                                    ''       '                                                                                                          ´   `                             ’                '                                        )`·.‚                                                      ´   `      
+                            )  `·.   .·´( .·´  (’                               )`·.‚                      °                      º                                         ''     '                                                          (`·.                     )`·._.·´(      )`·.              ’                   '                                   /(‚     .·´    (’                 (`·.                     )`·._.·´(      )`·. 
+                    .·´( .·´:..::(,(::--  ' '\:·´                   /(      .·´    (   ‚‚                  (`·.               "   )\'                      )\      )\'                                                                         \::`·._)`·.     )\.·´::...  .:::)  .·´  ./`            (`·.                )\'                        )\      )  `·._):::.    )       `          \::`·._)`·.     )\.·´::...  .:::)  .·´  ./`
+                    );; :-- ' ' ’ ’           _\            )\      )  `·._):::.    )       `          '    )  `·.       .·´( .·´"(                  .·´  /  .·´.:/           .·'´(        ‚    ‚        .·´(‚                        .·´(   )::. ..::::).·´;·'--  ´ '\::.`·.(::..:(                 )  `·.    .·´( .·´ (’    /('           )\ .·´ .:`·.(:;;  --  ' '\:. :(.·´)'  ')\   .·´(   )::. ..::::).·´;·'--  ´ '\::.`·.(::..:(    
+                .·´/\                ,..:´:::"'/      )\ .·´ .:`·.(:;;  --  ' '\:. :(.·´)‚‚ ‚)\     .·´( .·´:..::(,__(::..--  ' '\:·´(     .·´(     ):.::`·.)::::)    )\     )   `·.'   /(.·´(       )::..:`·.(`·.                ):..\(;;::--  ´ ´                 \:::::::...::)        .·´( .·´:..::(,(::--'``\::.`·._) `·. ‚‚  .·´  (,): --  ' '              \....:::`·.(  (  ):..\(;;::--  ´ ´                 \:::::::...::)   
+               °)/:::'\...:/I       I::::::::"/   .·´  (,): --  ' '              \....:::`·.(  (    );; :--  ' ’                   _\::/'   (  .:::`·./::;,  --   '\/(.·´.::).·´:   .::)   )::..::`·._/;;  --  ' '\‚::)    )\‚‚    ‚(::...·/\``'                          ¯¯¯¯¯¯/        );; :--   '               \::....:::::::::) ):.::/\                        ¯¯¯`·’::'·`´'(::...·/\``'                          ¯¯¯¯¯¯/   
+                 '\:::/:::/::I       I;;::·'’´     ):.::/\                        ¯¯¯` · ::·´° .·´/\                   ,.. : ´:::'/:’'  .·´.;);;--  ' '               '\:::::.···.:::·´ .·´;; --  ' '               \:/ ‚.·´ .:(‚·´(  `·:/::::\...:´/        ___________„/’  ’   .·´/\                ,...__ ¯¯¯` ·:::·´º `·:/::::\...:´/       ____          \‚       `·:/::::\...:´/        ___________„/’  ’ 
+                   \/;:-´I::'I       I'’           `·:/::::\...:´/       ____          \‚     `)/:::'\__..:´/       /::::::::::/°    I:::/\                         `` ··:::::·´´  '  ):/\                 ,..::´/   ):::..::::·´     \::::/:::·/        /:::::::::;; -- ´'´ \'         `)/:::'\...:´/       /:::::::::::/         /`     `\::::/::::/      /::::::::/\          I·         \::::/:::·/        /:::::::::;; -- ´'´ \'        
+     /(                  I:::I       I''              \::::/:::`/      /:::::::::/I        /´       '\:::/::::::·/       /:::;;::· ´'’      )/::::'\..:´/       /`::-..,         `./'  '     I/::::\...:´/\       \:::"'/   '/¯¯¯¯/´         \/;::-'/        /;;::·-  '´ ´        _\          '\:::/:::°/       /;;::;;´-··´´        /`         \/;::-'/      /::::::::/:::I        /’'           \/;::-'/        /;;::·-  '´ ´        _\       
+    ):. `·.              I::/       /                  \/;::-'/      /:::::::::/:/       /'’          \/;::::::'/       /·'´                '\:::'/::::/       /,::-·· ' '        `/"    "    \::::/:::'/:::\       \-´    '/        /´               '/                      .,.,·:::::'/’           \/;::-'/                    ,...::::´/''               /I      I¯¯¯¯¯\:/..-:::"/                   '/                      .,.,·:::::'/’      
+   /::...::( .·´(   "’   I'/       /                        '/      /¯¯¯¯¯I/       /’            (`·.)'::/       /"                     \/;::-'/       ,...-::::·/         /’             \/;::-' \::::'\       \    /        /''      )`·.    '/         _ ,.,.,·:::::::::::::·'/                  '/         ,, -,        \::::::/’’              /::I       `·*···. ____             )`·.    '/         _ ,.,.,·:::::::::::::·'/        
+  /¯¯¯¯ / ).. `·.    I/       /                        '/      /           /      '/                 )::./       /'’                           /        /::::::::·/         /´'                      \:::::\       \/        `/’      (::..:(.:'/         /:::::::::::::::::::·.·´     '       .·´( ’/         /:::/::\        \:·'´                I:::/`:::·...               `/’         (::..:(.:'/         /:::::::::::::::::::·.·´     '    
+ /\        \:...:::(. · ´        /                       '/I      'I          /      ’/`                '\:·/       /’                           '/       '/;::: ·- ·/         /´    `'                   '\:::·'\              `/·        `·::..·/          `·__:::::· ’\:  .·´               _) ::/         /;;:/:::::\       '\’’                 I:/::::::::::::·-,          /            `·::..·/          `·__:::::· ’\:  .·´             
+/:::`·.    ¯¯¯¯         ,.::/"                      /::/`· ,    ` ·,„_/       /··                  '/       /                            /____/.·´)    (/         /"                            \:::::\            '/"              )/`·.                        \(´      `   ·      )..::/         /    '\::::::\       '\'·                ` ·::;;::- ··  ´´        /                  )/`·.                        \(´      `   ·    
+\::::::::·.______..::::::/''                      I:'/::::::::` · , ___,‚·'/’’                  ·/,..:::·/''                           /::::::::/;;  --  ´´      .·’/'    ’’                         '\::::/:·.__.·''/’'              /::::::`·._____ ...·::::::/’                  '`·:/____ /       \::::::\____\''        /\¯¯¯¯         ,,  -::::::::/"                 /::::::`·._____ ...·::::::/’                
+  `·:::::·/::::::::::/:··;··´                         `·:;::::::::::::/:::::/:::/                    '/:::::::'/··                          /::::::::/':-.., .,..-::/::::'/"                                 '\/::::/:::/’’'/                 `·:::::::/:::::::::/::::::::::/                       /:::::::::/         ’\::::/::::::::/'       /::::\,,  -::::::::::::::::::::::/·                  `·:::::::/:::::::::/::::::::::/                  
+      `·:/::::::::::/;· ’´                                 `’’·::;::::/:::::/;·´                     '/:;:: ·´'                              ¯¯¯¯/::::::/:::::::/:::·´'                                    `·::/:::/··´                      `·::/:::::::::/:::::·’´´’’                       /:::::::::/           ’'\:/::::::::/         '\:::/:::::::::::::::;;:::::·'''´´                        `·::/:::::::::/:::::·’´´’’                   
+          ¯¯¯¯¯'                                                 '¯¯¯'                          ¯"°                                         '` ·::;/::;::-··´´                                            ¯¯                               '¯¯¯¯¯’                                  ¯¯¯¯¯              ’¯¯¯¯¯’           \/::::::;;::-· ’’´´                                        '¯¯¯¯¯’                              </pre>
+            </div>
+
+            <div class="hero-foot">
+                <a href="#about" class="scroll-cue">SCROLL ↓</a>
+            </div>
+        </section>
+
+        <hr class="rule" data-label="01">
+
+        <!-- ============ ABOUT ============ -->
+        <section class="about" id="about">
+            <div class="sect-tag">[ 01 / ABOUT ]</div>
+            <div class="about-grid">
+                <div class="about-body">
+                    <h2>WHO</h2>
+                    <p>
+                        I'm João Pimentel, a 21-year-old DevOps team lead from Espírito
+                        Santo, Brazil, with a strong passion for cybersecurity.
+                    </p>
+                    <p>
+                        This is the Jotaverse, a hub for projects and experiments built
+                        for the fun of building. Pull anything apart. Reach out if
+                        something here is worth a conversation.
+                    </p>
                 </div>
             </div>
+        </section>
+
+        <hr class="rule" data-label="02">
+
+        <!-- ============ WORK ============ -->
+        <section class="work" id="work">
+            <div class="sect-tag">[ 02 / WORK ]</div>
+            <h2 class="sect-title">SELECTED PROJECTS</h2>
+
+            <ol class="proj-list">
+                <li class="proj">
+                    <a href="https://modula.jotaverse.com.br" target="_blank" rel="noopener">
+                        <span class="proj-no">001</span>
+                        <span class="proj-main">
+                            <span class="proj-title">MODULA</span>
+                            <span class="proj-desc">Web synthesizer collection.</span>
+                        </span>
+                        <span class="proj-tags">HTML · CSS · JS</span>
+                        <span class="proj-arrow">↗</span>
+                    </a>
+                </li>
+                <li class="proj">
+                    <a href="https://codeshrine.jotaverse.com.br" target="_blank" rel="noopener">
+                        <span class="proj-no">002</span>
+                        <span class="proj-main">
+                            <span class="proj-title">CODESHRINE</span>
+                            <span class="proj-desc">Generates a shrine from repository statistics.</span>
+                        </span>
+                        <span class="proj-tags">HTML · CSS · JS</span>
+                        <span class="proj-arrow">↗</span>
+                    </a>
+                </li>
+                <li class="proj">
+                    <a href="https://github.com/joaomrpimentel/KubeOwl" target="_blank" rel="noopener">
+                        <span class="proj-no">003</span>
+                        <span class="proj-main">
+                            <span class="proj-title">KUBEOWL</span>
+                            <span class="proj-desc">Real-time Kubernetes resource monitoring with a web interface.</span>
+                        </span>
+                        <span class="proj-tags">GO</span>
+                        <span class="proj-arrow">↗</span>
+                    </a>
+                </li>
+                <li class="proj">
+                    <a href="snake-queue" target="_blank" rel="noopener">
+                        <span class="proj-no">004</span>
+                        <span class="proj-main">
+                            <span class="proj-title">SNAKE-QUEUE</span>
+                            <span class="proj-desc">Minimalist task manager visualized as a classic snake game.</span>
+                        </span>
+                        <span class="proj-tags">HTML · CSS · JS</span>
+                        <span class="proj-arrow">↗</span>
+                    </a>
+                </li>
+                <li class="proj">
+                    <a href="subtone" target="_blank" rel="noopener">
+                        <span class="proj-no">005</span>
+                        <span class="proj-main">
+                            <span class="proj-title">SUBTONE</span>
+                            <span class="proj-desc">Retro browser-based image tool for glitched-out aesthetics.</span>
+                        </span>
+                        <span class="proj-tags">HTML · CSS · JS</span>
+                        <span class="proj-arrow">↗</span>
+                    </a>
+                </li>
+                <li class="proj">
+                    <a href="https://lume.jotaverse.com.br/u/jota" target="_blank" rel="noopener">
+                        <span class="proj-no">006</span>
+                        <span class="proj-main">
+                            <span class="proj-title">LUME</span>
+                            <span class="proj-desc">My profile on Lume.</span>
+                        </span>
+                        <span class="proj-tags">PROFILE</span>
+                        <span class="proj-arrow">↗</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <hr class="rule" data-label="03">
+
+        <!-- ============ CONTACT ============ -->
+        <section class="contact" id="contact">
+            <div class="sect-tag">[ 03 / CONTACT ]</div>
+            <h2 class="sect-title contact-shout">LET'S&nbsp;TALK</h2>
+            <ul class="contact-links">
+                <li><a href="https://www.linkedin.com/in/jo%C3%A3o-marcos-pimentel-269a99296/" target="_blank" rel="noopener">LINKEDIN <span>↗</span></a></li>
+                <li><a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener">GITHUB <span>↗</span></a></li>
+                <li><a href="mailto:joaomarcosrpimentel@gmail.com">EMAIL <span>→</span></a></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="foot">
+        <div class="foot-rule" aria-hidden="true"><span>▓</span><i></i><span class="fr-mid">░▒▓▒░</span><i></i><span>▓</span></div>
+        <div class="foot-row">
+            <span>© <span id="year">2026</span> JOÃO PIMENTEL</span>
+            <span>JOTAVERSE</span>
+            <a href="#top">BACK TO TOP ↑</a>
         </div>
+    </footer>
 
-        <button id="sound-toggle" type="button" aria-label="Enable sound">×</button>
-    </div>
-
-    <script type="importmap">
-        { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
-    </script>
-    <script type="module" src="script.js" defer></script>
-
+    <script src="script.js" defer></script>
 </body>
 
 </html>
