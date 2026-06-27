@@ -54,6 +54,25 @@ h2, .sect-title, .proj-title, .about-body h2, .tagline {
     mix-blend-mode: screen;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+/* ---------- background skull watermark ---------- */
+.bg-skull {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    margin: 0;
+    pointer-events: none;
+    white-space: pre;
+    /* monospace grid art — uniform cell width required */
+    font-family: var(--font-mono);
+    font-size: clamp(0.28rem, 1.05vw, 0.62rem);
+    line-height: 1.0;
+    letter-spacing: 0;
+    color: var(--red);
+    opacity: 0.06;
+    text-shadow: 0 0 12px rgba(232,71,59,0.5);
+}
+
 /* ---------- cursor orb ---------- */
 #orb {
     position: fixed; inset: 0; z-index: 50;
