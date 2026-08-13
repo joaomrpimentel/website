@@ -158,6 +158,13 @@ section {
     text-shadow: 0 0 10px rgba(255,45,26,0.55), 0 0 26px rgba(255,45,26,0.3);
     will-change: transform;
 }
+/* slices of the masthead — each one springs away from the orb.
+   no will-change here: ~500 promoted layers costs more than it saves,
+   the script only touches the handful of slices near the orb. */
+.ascii-chunk {
+    display: inline-block;
+    white-space: pre;
+}
 
 .hero-foot {
     display: flex; align-items: flex-end; justify-content: space-between;
