@@ -146,7 +146,7 @@ section {
 .hero-meta span:last-child { color: var(--red); }
 
 .masthead { position: relative; width: 100%; }
-#ascii {
+#ascii, #ascii-glow {
     position: absolute; left: 50%; top: 0; margin: 0;
     transform-origin: top center;
     transform: translateX(-50%) scale(var(--ascii-scale, 0.3));
@@ -155,16 +155,36 @@ section {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11px; line-height: 1.17;
     color: #ff2d1a;
-    text-shadow: 0 0 10px rgba(255,45,26,0.55), 0 0 26px rgba(255,45,26,0.3);
-    will-change: transform;
+    /* decorative art (aria-hidden). selecting it made the browser rebuild the
+       selection rects of every slice on every animation frame, and hit-testing
+       hundreds of spans on pointermove was not free either. */
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
 }
-/* slices of the masthead — each one springs away from the orb.
-   no will-change here: ~500 promoted layers costs more than it saves,
-   the script only touches the handful of slices near the orb. */
+/* the slices carry no halo — that is what made the raster cost collapse.
+   will-change is here and only here: this is the layer that actually changes,
+   and text painted into its own layer antialiases differently, so removing it
+   visibly altered the weight of the glyphs. the twin does not need promoting —
+   it is already insulated from the slices by this layer. */
+#ascii { text-shadow: none; will-change: transform; }
+/* ...it lives here instead, on a twin that never moves and never repaints.
+   built by initAsciiJelly as a clone of the masthead before it gets sliced. */
+#ascii-glow {
+    /* transparent glyphs, so the twin contributes its shadow and nothing else —
+       otherwise it stacks a second opaque copy under the real one and the
+       masthead comes out far too hot */
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255,45,26,0.55), 0 0 26px rgba(255,45,26,0.3);
+}
+/* slices of the masthead — each one springs away from the orb */
 .ascii-chunk {
     display: inline-block;
     white-space: pre;
 }
+/* no will-change on the slices. it does cut raster by 90%, but it delivers
+   FEWER frames — the compositor churn of promoting and releasing hundreds of
+   spans per frame costs more than the repaint it avoids. measured both ways. */
 
 .hero-foot {
     display: flex; align-items: flex-end; justify-content: space-between;
