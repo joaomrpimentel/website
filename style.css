@@ -162,11 +162,11 @@ section {
     -webkit-user-select: none;
     pointer-events: none;
 }
-/* the slices carry no halo — that is what made the raster cost collapse.
-   will-change is here and only here: this is the layer that actually changes,
-   and text painted into its own layer antialiases differently, so removing it
-   visibly altered the weight of the glyphs. the twin does not need promoting —
-   it is already insulated from the slices by this layer. */
+/* the art carries no halo — that is what made the raster cost collapse. the
+   promotion is for the touch path, where this element is the visible art:
+   text painted into its own layer antialiases differently, and removing it
+   visibly altered the weight of the glyphs. on pointer devices the canvas
+   takes over and initAsciiJelly drops the will-change itself. */
 #ascii { text-shadow: none; will-change: transform; }
 /* ...it lives here instead, on a twin that never moves and never repaints.
    built by initAsciiJelly as a clone of the masthead before it gets sliced. */
@@ -177,14 +177,33 @@ section {
     color: transparent;
     text-shadow: 0 0 10px rgba(255,45,26,0.55), 0 0 26px rgba(255,45,26,0.3);
 }
-/* slices of the masthead — each one springs away from the orb */
+/* slices of the masthead. these spans are not animated any more — they are
+   the ruler initAsciiJelly measures the proportional art with, and the pre
+   goes visibility:hidden once the canvas layers are up. inline-block is what
+   makes each slice measurable on its own. */
 .ascii-chunk {
     display: inline-block;
     white-space: pre;
 }
-/* no will-change on the slices. it does cut raster by 90%, but it delivers
-   FEWER frames — the compositor churn of promoting and releasing hundreds of
-   spans per frame costs more than the repaint it avoids. measured both ways. */
+/* the two canvas layers the effect actually draws into: a base holding the
+   art at rest and an fx layer holding only the slices in flight. they carry
+   the art at its natural size and take the same scale as the DOM copy, so a
+   resize is geometrically right immediately — only sharpness has to catch up
+   when the backing store is rebuilt. */
+.ascii-layer {
+    position: absolute; left: 50%; top: 0;
+    transform-origin: top center;
+    transform: translateX(-50%) scale(var(--ascii-scale, 0.3));
+    pointer-events: none;
+}
+/* the fx layer is bigger than the art on every side, so slices shoved out of
+   the masthead still have canvas to land on. the extra translate pulls that
+   margin back into register — it sits inside the scale, so it is in the same
+   local units the effect works in. */
+.ascii-layer.ascii-fx {
+    transform: translateX(-50%) scale(var(--ascii-scale, 0.3))
+               translateY(calc(-1 * var(--bleed-y, 0px)));
+}
 
 .hero-foot {
     display: flex; align-items: flex-end; justify-content: space-between;
