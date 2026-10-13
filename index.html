@@ -1,196 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jotaverse / João Pimentel</title>
-    <meta name="description" content="The Jotaverse / João Pimentel, DevOps team lead and cybersecurity enthusiast. Projects and experiments.">
+    <meta name="description" content="Jotaverse, de João Pimentel: líder de DevOps em Serra, ES. Projetos e experimentos feitos pelo prazer de construir.">
     <meta property="og:title" content="Jotaverse / João Pimentel">
-    <meta property="og:description" content="DevOps & security. Projects and experiments.">
+    <meta property="og:description" content="DevOps, segurança e projetos feitos pelo prazer de construir.">
     <meta property="og:type" content="website">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#f4f1ea">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- Newsreader + Geist for the page, Jacquard 24 for the pixel blackletter accents, GFS Didot for the greek; Archivo + Reenie Beanie are the card's print and pen -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Archivo+Black&family=GFS+Didot&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500&family=Jacquard+24&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
-    <div class="dither" aria-hidden="true"></div>
+    <!-- ============ MASTHEAD (also the navigation) ============
+         the page ships in portuguese; i18n.js swaps every [data-i18n] for english -->
+    <header class="mast">
+        <div class="mast-col mast-id">
+            <a href="#" class="brand" data-go="home">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8.5" y="4.5" width="15" height="23" rx="7.5"/><path d="M6 30 26 2"/></svg>
+                JOÃO PIMENTEL
+            </a>
+            <p class="mono-s" data-i18n="role">LÍDER DE DEVOPS NO LEDS<br>SERRA · ES · BRASIL</p>
+            <p class="mast-now" data-i18n="now">Toco um time de DevOps de quatro pessoas no LEDS, um laboratório do Ifes. O último texto que escrevi: como 50 bytes de MTU deixaram nosso CI travado sem um único erro. <a href="https://blog.jotaverse.com.br/posts/50-bytes-ci-mudo/">Ler →</a></p>
+        </div>
 
-    <header class="nav">
-        <a href="#top" class="nav-brand" aria-label="Jotaverse home">
-            <img src="pantocrator.png" alt="Jotaverse">
-        </a>
-        <nav class="nav-links" aria-label="Sections">
-            <a href="#about">ABOUT</a>
-            <a href="#work">WORK</a>
-            <a href="#contact">CONTACT</a>
-            <a href="https://blog.jotaverse.com.br">BLOG ↗</a>
-            <a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener">GITHUB ↗</a>
+        <nav class="mast-col mast-menu" data-i18n-aria="nav" aria-label="Seções">
+            <p class="label">menu</p>
+            <a href="#" data-go="home"><kbd>1</kbd><span data-i18n="m-home">Início</span></a>
+            <a href="#works" data-go="works"><kbd>2</kbd><span data-i18n="m-works">Projetos</span></a>
+            <a href="#me" data-go="me"><kbd>3</kbd><span data-i18n="m-me">Sobre</span></a>
+            <a href="#links" data-go="links"><kbd>4</kbd><span data-i18n="m-links">Contato</span></a>
         </nav>
+
+        <div class="mast-col mast-contact">
+            <p class="label" data-i18n="elsewhere">por aí</p>
+            <a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener">GITHUB</a>
+            <a href="https://www.linkedin.com/in/jo%C3%A3o-marcos-pimentel-269a99296/" target="_blank" rel="noopener">LINKEDIN</a>
+            <a href="mailto:joaomarcosrpimentel@gmail.com" data-copy="joaomarcosrpimentel@gmail.com">EMAIL</a>
+            <a href="https://blog.jotaverse.com.br">BLOG</a>
+        </div>
+
+        <div class="mast-col mast-lang">
+            <p class="label" data-i18n="lang-label">língua</p>
+            <div class="lang" role="group" data-i18n-aria="lang-group" aria-label="Língua do site">
+                <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+            </div>
+        </div>
     </header>
 
-    <main id="top">
+    <main>
+        <!-- ============ HOME ============ -->
+        <section class="view view-home" id="home" data-i18n-aria="m-home" aria-label="Início">
+            <div class="home">
+                <h1 class="headline">
+                    <span class="visually-hidden">João Pimentel. </span><span data-i18n="headline">Construo coisas<br><em>do zero</em>,<br>por pura diversão.</span>
+                </h1>
 
-        <!-- ============ HERO ============ -->
-        <section class="hero" id="hero">
-            <div class="hero-meta">
-                <span>EST. ES / BRASIL</span>
-                <span>23°S · 45°W</span>
-            </div>
+                <!-- the pet: a pixel owl that lives in a rendered egg. layers come from
+                     tools/egg.py; the lcd is a canvas in the hole the frame leaves for it.
+                     .egg takes the pick-up zoom, .egg-body the idle sway, so each keeps
+                     its own transform origin -->
+                <div class="pet">
+                    <div class="egg" id="egg" tabindex="0" role="group" data-i18n-aria="egg" aria-label="Jotagotchi, uma coruja de pixel chamada Byte. Aperte Enter pra pegar.">
+                        <div class="egg-body">
+                            <canvas id="pet" width="64" height="48" aria-hidden="true"></canvas>
+                            <img class="egg-layer egg-frame" src="assets/egg/frame.webp" alt="" width="900" height="1100" draggable="false">
+                            <img class="egg-layer egg-press" data-for="a" src="assets/egg/button_1.webp" alt="" width="900" height="1100" draggable="false">
+                            <img class="egg-layer egg-press" data-for="b" src="assets/egg/button_2.webp" alt="" width="900" height="1100" draggable="false">
+                            <img class="egg-layer egg-press" data-for="c" src="assets/egg/button_3.webp" alt="" width="900" height="1100" draggable="false">
+                            <button type="button" class="egg-key" data-key="a" style="--l:31.4%;--t:76.9%;--w:8.6%;--h:7.4%" data-i18n-aria="k-feed" aria-label="Alimentar"></button>
+                            <button type="button" class="egg-key" data-key="b" style="--l:45.8%;--t:79.5%;--w:8.4%;--h:7.4%" data-i18n-aria="k-play" aria-label="Brincar"></button>
+                            <button type="button" class="egg-key" data-key="c" style="--l:60%;--t:76.9%;--w:8.6%;--h:7.4%" data-i18n-aria="k-light" aria-label="Luz"></button>
+                        </div>
+                    </div>
+                    <p class="visually-hidden" id="pet-live" aria-live="polite"></p>
+                </div>
 
-            <h1 class="visually-hidden">Jotaverse</h1>
-            <div class="masthead" role="img" aria-label="Jotaverse">
-                <pre id="ascii" aria-hidden="true">                          (`·.                )\‚                      '         '                    º                     °                                    ''       '                                                                                                          ´   `                             ’                '                                        )`·.‚                                                      ´   `      
-                            )  `·.   .·´( .·´  (’                               )`·.‚                      °                      º                                         ''     '                                                          (`·.                     )`·._.·´(      )`·.              ’                   '                                   /(‚     .·´    (’                 (`·.                     )`·._.·´(      )`·. 
-                    .·´( .·´:..::(,(::--  ' '\:·´                   /(      .·´    (   ‚‚                  (`·.               "   )\'                      )\      )\'                                                                         \::`·._)`·.     )\.·´::...  .:::)  .·´  ./`            (`·.                )\'                        )\      )  `·._):::.    )       `          \::`·._)`·.     )\.·´::...  .:::)  .·´  ./`
-                    );; :-- ' ' ’ ’           _\            )\      )  `·._):::.    )       `          '    )  `·.       .·´( .·´"(                  .·´  /  .·´.:/           .·'´(        ‚    ‚        .·´(‚                        .·´(   )::. ..::::).·´;·'--  ´ '\::.`·.(::..:(                 )  `·.    .·´( .·´ (’    /('           )\ .·´ .:`·.(:;;  --  ' '\:. :(.·´)'  ')\   .·´(   )::. ..::::).·´;·'--  ´ '\::.`·.(::..:(    
-                .·´/\                ,..:´:::"'/      )\ .·´ .:`·.(:;;  --  ' '\:. :(.·´)‚‚ ‚)\     .·´( .·´:..::(,__(::..--  ' '\:·´(     .·´(     ):.::`·.)::::)    )\     )   `·.'   /(.·´(       )::..:`·.(`·.                ):..\(;;::--  ´ ´                 \:::::::...::)        .·´( .·´:..::(,(::--'``\::.`·._) `·. ‚‚  .·´  (,): --  ' '              \....:::`·.(  (  ):..\(;;::--  ´ ´                 \:::::::...::)   
-               °)/:::'\...:/I       I::::::::"/   .·´  (,): --  ' '              \....:::`·.(  (    );; :--  ' ’                   _\::/'   (  .:::`·./::;,  --   '\/(.·´.::).·´:   .::)   )::..::`·._/;;  --  ' '\‚::)    )\‚‚    ‚(::...·/\``'                          ¯¯¯¯¯¯/        );; :--   '               \::....:::::::::) ):.::/\                        ¯¯¯`·’::'·`´'(::...·/\``'                          ¯¯¯¯¯¯/   
-                 '\:::/:::/::I       I;;::·'’´     ):.::/\                        ¯¯¯` · ::·´° .·´/\                   ,.. : ´:::'/:’'  .·´.;);;--  ' '               '\:::::.···.:::·´ .·´;; --  ' '               \:/ ‚.·´ .:(‚·´(  `·:/::::\...:´/        ___________„/’  ’   .·´/\                ,...__ ¯¯¯` ·:::·´º `·:/::::\...:´/       ____          \‚       `·:/::::\...:´/        ___________„/’  ’ 
-                   \/;:-´I::'I       I'’           `·:/::::\...:´/       ____          \‚     `)/:::'\__..:´/       /::::::::::/°    I:::/\                         `` ··:::::·´´  '  ):/\                 ,..::´/   ):::..::::·´     \::::/:::·/        /:::::::::;; -- ´'´ \'         `)/:::'\...:´/       /:::::::::::/         /`     `\::::/::::/      /::::::::/\          I·         \::::/:::·/        /:::::::::;; -- ´'´ \'        
-     /(                  I:::I       I''              \::::/:::`/      /:::::::::/I        /´       '\:::/::::::·/       /:::;;::· ´'’      )/::::'\..:´/       /`::-..,         `./'  '     I/::::\...:´/\       \:::"'/   '/¯¯¯¯/´         \/;::-'/        /;;::·-  '´ ´        _\          '\:::/:::°/       /;;::;;´-··´´        /`         \/;::-'/      /::::::::/:::I        /’'           \/;::-'/        /;;::·-  '´ ´        _\       
-    ):. `·.              I::/       /                  \/;::-'/      /:::::::::/:/       /'’          \/;::::::'/       /·'´                '\:::'/::::/       /,::-·· ' '        `/"    "    \::::/:::'/:::\       \-´    '/        /´               '/                      .,.,·:::::'/’           \/;::-'/                    ,...::::´/''               /I      I¯¯¯¯¯\:/..-:::"/                   '/                      .,.,·:::::'/’      
-   /::...::( .·´(   "’   I'/       /                        '/      /¯¯¯¯¯I/       /’            (`·.)'::/       /"                     \/;::-'/       ,...-::::·/         /’             \/;::-' \::::'\       \    /        /''      )`·.    '/         _ ,.,.,·:::::::::::::·'/                  '/         ,, -,        \::::::/’’              /::I       `·*···. ____             )`·.    '/         _ ,.,.,·:::::::::::::·'/        
-  /¯¯¯¯ / ).. `·.    I/       /                        '/      /           /      '/                 )::./       /'’                           /        /::::::::·/         /´'                      \:::::\       \/        `/’      (::..:(.:'/         /:::::::::::::::::::·.·´     '       .·´( ’/         /:::/::\        \:·'´                I:::/`:::·...               `/’         (::..:(.:'/         /:::::::::::::::::::·.·´     '    
- /\        \:...:::(. · ´        /                       '/I      'I          /      ’/`                '\:·/       /’                           '/       '/;::: ·- ·/         /´    `'                   '\:::·'\              `/·        `·::..·/          `·__:::::· ’\:  .·´               _) ::/         /;;:/:::::\       '\’’                 I:/::::::::::::·-,          /            `·::..·/          `·__:::::· ’\:  .·´             
-/:::`·.    ¯¯¯¯         ,.::/"                      /::/`· ,    ` ·,„_/       /··                  '/       /                            /____/.·´)    (/         /"                            \:::::\            '/"              )/`·.                        \(´      `   ·      )..::/         /    '\::::::\       '\'·                ` ·::;;::- ··  ´´        /                  )/`·.                        \(´      `   ·    
-\::::::::·.______..::::::/''                      I:'/::::::::` · , ___,‚·'/’’                  ·/,..:::·/''                           /::::::::/;;  --  ´´      .·’/'    ’’                         '\::::/:·.__.·''/’'              /::::::`·._____ ...·::::::/’                  '`·:/____ /       \::::::\____\''        /\¯¯¯¯         ,,  -::::::::/"                 /::::::`·._____ ...·::::::/’                
-  `·:::::·/::::::::::/:··;··´                         `·:;::::::::::::/:::::/:::/                    '/:::::::'/··                          /::::::::/':-.., .,..-::/::::'/"                                 '\/::::/:::/’’'/                 `·:::::::/:::::::::/::::::::::/                       /:::::::::/         ’\::::/::::::::/'       /::::\,,  -::::::::::::::::::::::/·                  `·:::::::/:::::::::/::::::::::/                  
-      `·:/::::::::::/;· ’´                                 `’’·::;::::/:::::/;·´                     '/:;:: ·´'                              ¯¯¯¯/::::::/:::::::/:::·´'                                    `·::/:::/··´                      `·::/:::::::::/:::::·’´´’’                       /:::::::::/           ’'\:/::::::::/         '\:::/:::::::::::::::;;:::::·'''´´                        `·::/:::::::::/:::::·’´´’’                   
-          ¯¯¯¯¯'                                                 '¯¯¯'                          ¯"°                                         '` ·::;/::;::-··´´                                            ¯¯                               '¯¯¯¯¯’                                  ¯¯¯¯¯              ’¯¯¯¯¯’           \/::::::;;::-· ’’´´                                        '¯¯¯¯¯’                              </pre>
-            </div>
-
-            <div class="hero-foot">
-                <a href="#about" class="scroll-cue">SCROLL ↓</a>
+                <!-- the collectible, tossed on the corner -->
+                <button type="button" class="tossed" id="open-qsl" aria-haspopup="dialog">
+                    <canvas id="card-thumb" width="700" height="450" aria-hidden="true"></canvas>
+                    <span class="tossed-note"><span class="label" data-i18n="qsl-season">QSL Nº 01 · desta estação</span><span data-i18n="qsl-open">abrir ↗</span></span>
+                </button>
             </div>
         </section>
 
-        <hr class="rule" data-label="01">
+        <!-- ============ WORKS ============ -->
+        <section class="view" id="works" aria-labelledby="works-title" hidden>
+            <header class="view-head">
+                <h2 id="works-title" data-i18n="m-works">Projetos</h2>
+                <p class="mono-s" data-i18n="works-sub">o que eu faço quando ninguém está pedindo.</p>
+            </header>
+            <div class="works">
+                <a class="work" href="https://github.com/joaomrpimentel/KubeOwl" target="_blank" rel="noopener">
+                    <span class="work-shot"><img src="assets/works/kubeowl.webp" data-i18n-alt="alt-kubeowl" alt="Painel do KubeOwl com a visão geral do cluster" loading="lazy" width="1200" height="750"></span>
+                    <span class="work-meta"><span class="work-name">KubeOwl</span><span class="chip">GO · OPEN SOURCE</span></span>
+                    <span class="work-title" data-i18n="w-kubeowl">Um dashboard web que mostra o estado de um cluster Kubernetes em tempo real.</span>
+                </a>
+                <a class="work" href="https://modula.jotaverse.com.br" target="_blank" rel="noopener">
+                    <span class="work-shot"><img src="assets/works/modula.webp" data-i18n-alt="alt-modula" alt="Tela inicial do Modula com três sintetizadores" loading="lazy" width="1200" height="750" data-zoom="2.4" data-focus="50 30"></span>
+                    <span class="work-meta"><span class="work-name">Modula</span><span class="chip">WEB AUDIO</span></span>
+                    <span class="work-title" data-i18n="w-modula">Três sintetizadores que rodam direto no navegador.</span>
+                </a>
+                <a class="work" href="subtone/" target="_blank" rel="noopener">
+                    <span class="work-shot"><img src="assets/works/subtone.webp" data-i18n-alt="alt-subtone" alt="Editor do Subtone com efeitos de dithering, CRT e halftone" loading="lazy" width="1200" height="750"></span>
+                    <span class="work-meta"><span class="work-name">Subtone</span><span class="chip" data-i18n="c-image">IMAGEM</span></span>
+                    <span class="work-title" data-i18n="w-subtone">Um editor de imagem que aplica dither, halftone e outros efeitos retrô.</span>
+                </a>
+                <a class="work" href="https://lume.jotaverse.com.br/u/jota" target="_blank" rel="noopener">
+                    <span class="work-shot"><img src="assets/works/lume.webp" data-i18n-alt="alt-lume" alt="Perfil no Lume com uma grade de fotos polaroid" loading="lazy" width="1200" height="750"></span>
+                    <span class="work-meta"><span class="work-name">Lume</span><span class="chip" data-i18n="c-photos">REDE SOCIAL</span></span>
+                    <span class="work-title" data-i18n="w-lume">Uma rede social por convite, onde posto algumas fotos.</span>
+                </a>
+                <a class="work" href="snake-queue/" target="_blank" rel="noopener">
+                    <span class="work-shot"><img src="assets/works/snake.webp" data-i18n-alt="alt-snake" alt="Ajuda do Snake Queue sobre o tabuleiro do jogo" loading="lazy" width="1200" height="750" data-zoom="1.6" data-focus="50 30"></span>
+                    <span class="work-meta"><span class="work-name">Snake Queue</span><span class="chip" data-i18n="c-exp">EXPERIMENTO</span></span>
+                    <span class="work-title" data-i18n="w-snake">Uma lista de tarefas em que cada tarefa é um pedaço de uma cobra.</span>
+                </a>
+                <a class="work" href="https://blog.jotaverse.com.br">
+                    <span class="work-shot"><img src="assets/works/blog.webp" data-i18n-alt="alt-blog" alt="Página inicial do blog do Jotaverse" loading="lazy" width="1200" height="750"></span>
+                    <span class="work-meta"><span class="work-name">Blog</span><span class="chip" data-i18n="c-writing">TEXTOS</span></span>
+                    <span class="work-title" data-i18n="w-blog">Onde escrevo sobre DevOps, segurança e homelab.</span>
+                </a>
+            </div>
+        </section>
 
         <!-- ============ ABOUT ============ -->
-        <section class="about" id="about">
-            <div class="sect-tag">[ 01 / ABOUT ]</div>
-            <div class="about-grid">
-                <div class="about-body">
-                    <h2>WHO</h2>
-                    <p>
-                        I'm João Pimentel, a 21-year-old DevOps team lead from Espírito
-                        Santo, Brazil, with a strong passion for cybersecurity.
-                    </p>
-                    <p>
-                        This is the Jotaverse, a hub for projects and experiments built
-                        for the fun of building. Pull anything apart. Reach out if
-                        something here is worth a conversation.
-                    </p>
-                </div>
+        <section class="view view-center" id="me" aria-labelledby="me-title" hidden>
+            <div class="me-text">
+                <h2 id="me-title" data-i18n="m-me">Sobre</h2>
+                <p data-i18n="me-1">Sou o João. Lidero o time de DevOps do LEDS, um laboratório do Ifes em Serra, no Espírito Santo. No dia a dia isso quer dizer pipelines de CI/CD com GitHub Actions, Drone e Argo, clusters Kubernetes na AWS e nos nossos próprios servidores Proxmox, e zero trust entre os microsserviços.</p>
+                <p data-i18n="me-2">Antes disso fui dev full cycle no mesmo laboratório. Escrevi a extensão em Langium por trás do Spark-LEds, que gera código de front e back a partir de uma DSL pequena, e um gateway de API com Ocelot.</p>
+                <p data-i18n="me-3">O resto deste site eu fiz por diversão, no meu tempo livre.</p>
+                <dl class="facts">
+                    <div><dt class="label" data-i18n="f-studied">estudei</dt><dd data-i18n="f-studied-v">Sistemas de Informação no Ifes. Antes, técnico em automação industrial no Cedtec.</dd></div>
+                    <div><dt class="label" data-i18n="f-writing">escrevo</dt><dd data-i18n="f-writing-v">Notas sobre DevOps e segurança, <a href="https://blog.jotaverse.com.br">no blog</a>.</dd></div>
+                </dl>
             </div>
+            <!-- ichthys: just the word, quiet in the corner. on hover a fish slips out
+                 from under the letters, arcs over them and dives back in with a splash.
+                 the "water" is the baseline: everything below it is clipped (site.js) -->
+            <figure class="ichthys" tabindex="0" aria-label="ΙΧΘΥΣ: Ἰησοῦς Χριστὸς Θεοῦ Υἱὸς Σωτήρ">
+                <svg viewBox="0 0 260 150" aria-hidden="true">
+                    <defs><clipPath id="above-water"><rect x="-40" y="-80" width="340" height="208"/></clipPath></defs>
+                    <text class="ichthys-word" x="130" y="128" text-anchor="middle">ΙΧΘΥΣ</text>
+                    <g clip-path="url(#above-water)">
+                        <g class="ichthys-fish" transform="translate(30 190)">
+                            <path d="M-22 8 C -11 -10, 12 -12, 22 0 C 12 12, -11 10, -22 -8"/>
+                            <circle cx="13" cy="-2" r="1.5"/>
+                        </g>
+                    </g>
+                    <g class="ichthys-splash"></g>
+                </svg>
+            </figure>
         </section>
-
-        <hr class="rule" data-label="02">
-
-        <!-- ============ WORK ============ -->
-        <section class="work" id="work">
-            <div class="sect-tag">[ 02 / WORK ]</div>
-            <h2 class="sect-title">SELECTED PROJECTS</h2>
-
-            <ol class="proj-list">
-                <li class="proj">
-                    <a href="https://modula.jotaverse.com.br" target="_blank" rel="noopener">
-                        <span class="proj-no">001</span>
-                        <span class="proj-main">
-                            <span class="proj-title">MODULA</span>
-                            <span class="proj-desc">Web synthesizer collection.</span>
-                        </span>
-                        <span class="proj-tags">HTML · CSS · JS</span>
-                        <span class="proj-arrow">↗</span>
-                    </a>
-                </li>
-                <li class="proj">
-                    <a href="https://github.com/joaomrpimentel/KubeOwl" target="_blank" rel="noopener">
-                        <span class="proj-no">002</span>
-                        <span class="proj-main">
-                            <span class="proj-title">KUBEOWL</span>
-                            <span class="proj-desc">Real-time Kubernetes resource monitoring with a web interface.</span>
-                        </span>
-                        <span class="proj-tags">GO</span>
-                        <span class="proj-arrow">↗</span>
-                    </a>
-                </li>
-                <li class="proj">
-                    <a href="snake-queue" target="_blank" rel="noopener">
-                        <span class="proj-no">003</span>
-                        <span class="proj-main">
-                            <span class="proj-title">SNAKE-QUEUE</span>
-                            <span class="proj-desc">Minimalist task manager visualized as a classic snake game.</span>
-                        </span>
-                        <span class="proj-tags">HTML · CSS · JS</span>
-                        <span class="proj-arrow">↗</span>
-                    </a>
-                </li>
-                <li class="proj">
-                    <a href="subtone" target="_blank" rel="noopener">
-                        <span class="proj-no">004</span>
-                        <span class="proj-main">
-                            <span class="proj-title">SUBTONE</span>
-                            <span class="proj-desc">Retro browser-based image tool for glitched-out aesthetics.</span>
-                        </span>
-                        <span class="proj-tags">HTML · CSS · JS</span>
-                        <span class="proj-arrow">↗</span>
-                    </a>
-                </li>
-                <li class="proj">
-                    <a href="https://lume.jotaverse.com.br/u/jota" target="_blank" rel="noopener">
-                        <span class="proj-no">005</span>
-                        <span class="proj-main">
-                            <span class="proj-title">LUME</span>
-                            <span class="proj-desc">My profile on Lume.</span>
-                        </span>
-                        <span class="proj-tags">PROFILE</span>
-                        <span class="proj-arrow">↗</span>
-                    </a>
-                </li>
-                <li class="proj">
-                    <a href="qsl/">
-                        <span class="proj-no">006</span>
-                        <span class="proj-main">
-                            <span class="proj-title">QSL CARD</span>
-                            <span class="proj-desc">Seasonal QSL cards to collect. Sign yours while it's live.</span>
-                        </span>
-                        <span class="proj-tags">HTML · CSS · JS</span>
-                        <span class="proj-arrow">↗</span>
-                    </a>
-                </li>
-            </ol>
-        </section>
-
-        <hr class="rule" data-label="03">
 
         <!-- ============ CONTACT ============ -->
-        <section class="contact" id="contact">
-            <div class="sect-tag">[ 03 / CONTACT ]</div>
-            <h2 class="sect-title contact-shout">LET'S&nbsp;TALK</h2>
-            <ul class="contact-links">
-                <li><a href="https://blog.jotaverse.com.br">BLOG <span>↗</span></a></li>
-                <li><a href="https://www.linkedin.com/in/jo%C3%A3o-marcos-pimentel-269a99296/" target="_blank" rel="noopener">LINKEDIN <span>↗</span></a></li>
-                <li><a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener">GITHUB <span>↗</span></a></li>
-                <li><a href="mailto:joaomarcosrpimentel@gmail.com">EMAIL <span>→</span></a></li>
+        <section class="view view-center" id="links" aria-labelledby="links-title" hidden>
+            <header class="view-head">
+                <h2 id="links-title" data-i18n="links-title">Diga oi</h2>
+                <p class="mono-s" data-i18n="links-sub">o email é copiado quando você clica.</p>
+            </header>
+            <ul class="links">
+                <li><a href="mailto:joaomarcosrpimentel@gmail.com" data-copy="joaomarcosrpimentel@gmail.com"><span>Email</span><span class="mono-s">joaomarcosrpimentel@gmail.com</span><span class="go">⧉</span></a></li>
+                <li><a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener"><span>GitHub</span><span class="mono-s">@joaomrpimentel</span><span class="go">↗</span></a></li>
+                <li><a href="https://www.linkedin.com/in/jo%C3%A3o-marcos-pimentel-269a99296/" target="_blank" rel="noopener"><span>LinkedIn</span><span class="mono-s">João Marcos Pimentel</span><span class="go">↗</span></a></li>
+                <li><a href="https://blog.jotaverse.com.br"><span>Blog</span><span class="mono-s">blog.jotaverse.com.br</span><span class="go">↗</span></a></li>
             </ul>
         </section>
-
     </main>
 
-    <footer class="foot">
-        <div class="foot-rule" aria-hidden="true"><span>▓</span><i></i><span class="fr-mid">░▒▓▒░</span><i></i><span>▓</span></div>
-        <div class="foot-row">
-            <span>© <span id="year">2026</span> JOÃO PIMENTEL</span>
-            <span>JOTAVERSE</span>
-            <a href="#top">BACK TO TOP ↑</a>
-        </div>
+    <footer class="foot mono-s">
+        <span><span data-i18n="updated">ATUALIZADO EM</span> <time id="updated">10/26</time></span>
+        <span class="foot-keys"><kbd>1</kbd> <span data-i18n="keys">A</span> <kbd>4</kbd> <span data-i18n="keys-2">TROCAM DE TELA</span></span>
     </footer>
 
-    <script src="script.js" defer></script>
+    <!-- ============ QSL DIALOG ============ -->
+    <!-- not a panel: like the egg, the card is picked up off the page and the
+         page steps back. site.js flies it in from the thumbnail and back out -->
+    <dialog class="qsl-dialog" id="qsl-dialog" aria-labelledby="qsl-title">
+        <button type="button" class="dialog-close mono-s" id="close-qsl"><span data-i18n="close-l">esc · fechar</span> ×</button>
+        <div class="qsl-dialog-card">
+            <div class="card-wrap" id="card-wrap">
+                <canvas id="card" width="2100" height="1350" role="img" data-i18n-aria="card" aria-label="Cartão QSL de PP1JØTA, se preenchendo sozinho"></canvas>
+                <input id="to" class="to-input" maxlength="10" autocomplete="off" autocapitalize="characters"
+                       spellcheck="false" data-i18n-aria="to" aria-label="Seu nome ou indicativo, escrito no campo TO RADIO">
+            </div>
+            <p class="card-hint" id="hint" data-i18n="qsl-hint">✎ clique em <b>TO RADIO</b> e escreva seu indicativo ou nome</p>
+        </div>
+        <div class="qsl-dialog-text" id="qsl-text" tabindex="-1">
+            <p class="label" data-i18n="qsl-live">QSL Nº 01 · no ar desde 9 out 2026</p>
+            <h2 id="qsl-title" data-i18n="qsl-title">Cartão QSL</h2>
+            <p data-i18n="qsl-1">Depois de um contato, radioamadores mandam um cartão-postal um pro outro confirmando que ele aconteceu. Esse cartão é o QSL.</p>
+            <p data-i18n="qsl-2">O site mantém um cartão por estação. Este é o primeiro. Quando sair o próximo, este vai pro arquivo e para de mudar.</p>
+            <dl class="facts">
+                <div><dt class="label" data-i18n="qsl-feat">neste cartão</dt><dd data-i18n="qsl-feat-v"><i>Entoloma virescens</i>, um cogumelo da Mata Atlântica aqui do Espírito Santo, azul do chapéu ao pé.</dd></div>
+                <div><dt class="label" data-i18n="qsl-yours">o seu</dt><dd data-i18n="qsl-3">Escreva seu indicativo, ou só seu nome, em TO RADIO. A data e a hora se preenchem sozinhas.</dd></div>
+            </dl>
+            <button type="button" class="pill" id="download" data-i18n="qsl-dl">baixar meu cartão ↓</button>
+        </div>
+    </dialog>
+
+    <div class="pet-hint" id="pet-hint" aria-hidden="true"></div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="i18n.js" defer></script>
+    <script src="qsl/qsl.js" defer></script>
+    <script src="site.js" defer></script>
+    <script src="pet.js" defer></script>
 </body>
 
 </html>

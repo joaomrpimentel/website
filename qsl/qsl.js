@@ -42,6 +42,10 @@ T.cw = (T.x1 - T.split) / 7;
 const SIG = { x: 790, y: 1050, w: 560, h: 230 };
 const CELLS = ['day', 'month', 'year', 'utc', 'mhz', 'rst', 'mode'];
 
+/* the card lives in a dialog on the home page. only the canvas and the
+   TO RADIO input are required; the archive log, the status bar and the
+   extra buttons are wired up only when a page has them. */
+const $ = (id) => document.getElementById(id);
 const cv = document.getElementById('card');
 const ctx = cv.getContext('2d');
 const toInput = document.getElementById('to');
@@ -609,15 +613,17 @@ function stage(ed, archived) {
     live.busyUntil = Math.max(live.busyUntil, t + 1600);
 
     toInput.disabled = archived;
-    document.getElementById('download').hidden = archived;
-    document.getElementById('back').hidden = !archived;
-    document.getElementById('hint').hidden = archived;
+    $('download') && ($('download').hidden = archived);
+    $('back') && ($('back').hidden = !archived);
+    $('hint') && ($('hint').hidden = archived);
     document.querySelectorAll('.log-item').forEach((b) =>
         b.setAttribute('aria-current', String(archived && b.dataset.no === String(ed.no))));
     updateBar();
-    const note = document.getElementById('art-note');
-    note.hidden = !ed.artName;
-    note.innerHTML = ed.artName ? `<span class="art-tag">ON THE CARD</span> <i>${ed.artName}</i>${ed.artNote ? ` · ${ed.artNote}` : ''}` : '';
+    const note = $('art-note');
+    if (note) {
+        note.hidden = !ed.artName;
+        note.innerHTML = ed.artName ? `<span class="art-tag">ON THE CARD</span> <i>${ed.artName}</i>${ed.artNote ? ` · ${ed.artNote}` : ''}` : '';
+    }
     kick();
 }
 
@@ -630,12 +636,14 @@ function frame(now) {
     raf = 0;
     const focused = document.activeElement === toInput && !live.archived;
     drawCard(ctx, live.ed, live, { now, caret: focused, hint: !live.archived && now > live.busyUntil - 1600 });
+    cv.dispatchEvent(new Event('qsl:draw'));     // the home page mirrors the card into a thumbnail
     if (now < live.busyUntil || focused) raf = requestAnimationFrame(frame);
 }
 function kick() { if (!raf) raf = requestAnimationFrame(frame); }
 
 function updateBar() {
-    const st = document.getElementById('state');
+    const st = $('state');
+    if (!st) return;
     const ed = live.ed;
     if (live.archived) {
         st.className = 'archived';
@@ -650,7 +658,7 @@ function updateBar() {
    the minute (or the day, or the edition) actually changes */
 function tick() {
     const d = new Date();
-    document.getElementById('clock').textContent =
+    if ($('clock')) $('clock').textContent =
         `UTC ${pad2(d.getUTCHours())}:${pad2(d.getUTCMinutes())}:${pad2(d.getUTCSeconds())}`;
     if (live.archived || !live.ed) return;
     const cur = liveEdition(d);
@@ -666,7 +674,8 @@ function tick() {
 /* ---------- log of past editions ---------- */
 
 function buildLog() {
-    const log = document.getElementById('log');
+    const log = $('log');
+    if (!log) return;
     const now = new Date();
     const cur = liveEdition(now);
     const past = EDITIONS.filter((ed) => ed.no !== cur.no && ed.from <= ymd(now)).reverse();
@@ -745,8 +754,8 @@ function init() {
     toInput.addEventListener('blur', kick);
     toInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') toInput.blur(); });
 
-    document.getElementById('download').addEventListener('click', download);
-    document.getElementById('back').addEventListener('click', () => stage(liveEdition(new Date()), false));
+    $('download')?.addEventListener('click', download);
+    $('back')?.addEventListener('click', () => stage(liveEdition(new Date()), false));
 
     const q = new URLSearchParams(location.search).get('edition');
     const now = new Date();
