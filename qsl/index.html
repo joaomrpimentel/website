@@ -1,77 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QSL Card / Jotaverse</title>
-    <meta name="description" content="Limited-run QSL cards from PP1JØTA. One card per season, sign yours while it's live.">
-    <meta property="og:title" content="QSL Card / Jotaverse">
-    <meta property="og:description" content="One card per season. Sign yours while it's live.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Archivo:wght@500;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="qsl.css">
+    <!-- the QSL card moved to the home page; keep old links working -->
+    <link rel="canonical" href="https://jotaverse.com.br/#qsl">
+    <meta http-equiv="refresh" content="0; url=../#qsl">
+    <script>location.replace('../#qsl');</script>
 </head>
-
 <body>
-    <div class="dither" aria-hidden="true"></div>
-
-    <header class="nav">
-        <a href="../" class="nav-brand" aria-label="Jotaverse home">
-            <img src="../pantocrator.png" alt="Jotaverse">
-        </a>
-        <nav class="nav-links" aria-label="Site">
-            <a href="../">← JOTAVERSE</a>
-            <a href="https://blog.jotaverse.com.br">BLOG ↗</a>
-            <a href="https://github.com/joaomrpimentel" target="_blank" rel="noopener">GITHUB ↗</a>
-        </nav>
-    </header>
-
-    <main class="qsl">
-        <div class="sect-tag">[ QSL / CARD ]</div>
-        <h1 class="sect-title qsl-title">ONE CARD<br>PER&nbsp;SEASON</h1>
-        <p class="qsl-lede">
-            Limited-run QSL cards from PP1JØTA. Each edition has its own art and lives
-            for a season, then it's gone for good. Sign yours while it's live.
-        </p>
-
-        <div class="qsl-stage">
-            <div class="qsl-bar">
-                <span id="state">● LIVE</span>
-                <span id="clock">UTC --:--:--</span>
-            </div>
-            <div class="card-wrap">
-                <canvas id="card" width="2100" height="1350" role="img" aria-label="QSL card"></canvas>
-                <input id="to" class="to-input" maxlength="10" autocomplete="off" autocapitalize="characters"
-                       spellcheck="false" aria-label="Your callsign or name, written in the TO RADIO box">
-            </div>
-            <aside class="art-note" id="art-note" aria-live="polite"></aside>
-            <div class="qsl-actions">
-                <p class="qsl-hint" id="hint">✎ CLICK <b>TO RADIO</b> AND WRITE YOUR CALL</p>
-                <button type="button" class="btn" id="back" hidden>← BACK TO LIVE</button>
-                <button type="button" class="btn btn-hot" id="download">KEEP MY CARD ↓</button>
-            </div>
-        </div>
-
-        <section class="qsl-log" aria-labelledby="log-title">
-            <div class="sect-tag">[ LOG / PAST EDITIONS ]</div>
-            <div id="log" class="log-grid"></div>
-        </section>
-    </main>
-
-    <footer class="foot">
-        <div class="foot-rule" aria-hidden="true"><span>▓</span><i></i><span class="fr-mid">░▒▓▒░</span><i></i><span>▓</span></div>
-        <div class="foot-row">
-            <span>73 DE PP1JØTA</span>
-            <span id="log-title">QSL</span>
-            <a href="../">BACK HOME ↑</a>
-        </div>
-    </footer>
-
-    <script src="qsl.js" defer></script>
+    <p><a href="../#qsl">O cartão QSL agora fica na página inicial →</a></p>
 </body>
-
 </html>
