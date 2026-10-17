@@ -3,139 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUBTONE</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cg fill='%2300ff41'%3E%3Crect x='0' y='10' width='10' height='30'/%3E%3Crect x='20' y='10' width='10' height='30'/%3E%3Crect x='40' y='10' width='10' height='30'/%3E%3C/g%3E%3C/svg%3E">
+    <title>Subtone</title>
+    <meta name="description" content="Subtone: a small image toy for dither, halftone and other retro damage. Runs entirely in your browser.">
+    <meta name="theme-color" content="#151412">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 20 20' shape-rendering='crispEdges'%3E%3Crect x='-2' y='-2' width='20' height='20' fill='%23151412'/%3E%3Cpath fill='%2333312c' d='M5 0h6v1h-6zM3 1h10v1h-10zM2 2h12v1h-12zM1 3h14v1h-14zM1 4h14v1h-14zM0 5h16v1h-16zM0 6h16v1h-16zM0 7h16v1h-16zM0 8h16v1h-16zM0 9h16v1h-16zM0 10h16v1h-16zM1 11h14v1h-14zM1 12h14v1h-14zM2 13h12v1h-12zM3 14h10v1h-10zM5 15h6v1h-6z'/%3E%3Cpath fill='%237d93ff' d='M5 0h6v1h-6zM3 1h3v1h-3zM7 1h1v1h-1zM9 1h1v1h-1zM11 1h1v1h-1zM2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM1 3h7v1h-7zM9 3h1v1h-1zM11 3h1v1h-1zM1 4h10v1h-10zM12 4h1v1h-1zM0 5h6v1h-6zM7 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM0 6h9v1h-9zM10 6h1v1h-1zM12 6h1v1h-1zM1 7h3v1h-3zM5 7h1v1h-1zM7 7h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM0 8h7v1h-7zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM3 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM9 9h1v1h-1zM0 10h1v1h-1zM2 10h3v1h-3zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM1 11h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM12 12h1v1h-1z'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Geist for the interface, Newsreader for the wordmark and headline, Jacquard 24 for the pixel accents, VT323 for the y2k timestamp drawn on canvas -->
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500&family=Jacquard+24&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="app-body">
+<body>
+    <!-- the mark: a moon lit from the top left, its tone dithered with a 4x4 bayer matrix.
+         generated once; the dark path is the whole disc, the lit path sits on top -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="subtone-mark" viewBox="0 0 16 16">
+            <path class="mark-disc" d="M5 0h6v1h-6zM3 1h10v1h-10zM2 2h12v1h-12zM1 3h14v1h-14zM1 4h14v1h-14zM0 5h16v1h-16zM0 6h16v1h-16zM0 7h16v1h-16zM0 8h16v1h-16zM0 9h16v1h-16zM0 10h16v1h-16zM1 11h14v1h-14zM1 12h14v1h-14zM2 13h12v1h-12zM3 14h10v1h-10zM5 15h6v1h-6z"/>
+            <path class="mark-lit" d="M5 0h6v1h-6zM3 1h3v1h-3zM7 1h1v1h-1zM9 1h1v1h-1zM11 1h1v1h-1zM2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM1 3h7v1h-7zM9 3h1v1h-1zM11 3h1v1h-1zM1 4h10v1h-10zM12 4h1v1h-1zM0 5h6v1h-6zM7 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM0 6h9v1h-9zM10 6h1v1h-1zM12 6h1v1h-1zM1 7h3v1h-3zM5 7h1v1h-1zM7 7h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM0 8h7v1h-7zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM3 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM9 9h1v1h-1zM0 10h1v1h-1zM2 10h3v1h-3zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM1 11h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM12 12h1v1h-1z"/>
+        </symbol>
+    </svg>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="logo-container animated">
-            <svg class="subtone-logo" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
-                <g id="icon">
-                    <rect id="bar1" x="0" y="15" width="12" height="30" />
-                    <rect id="bar2" x="20" y="15" width="12" height="30" />
-                    <rect id="bar3" x="40" y="15" width="12" height="30" />
-                </g>
-                <text id="logo-text" x="70" y="50">SUBTONE</text>
-            </svg>
-        </div>
-    </div>
+    <input type="file" id="fileInput" class="visually-hidden" accept="image/png, image/jpeg, image/webp">
 
-    <!-- Main Application Structure -->
-    <div id="app-container" class="app-container">
-        
-        <!-- Mobile Header -->
-        <header id="main-header" class="main-header">
-            <div class="logo-container">
-                <svg class="static-subtone-logo-mobile-full" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
-                    <g id="icon"><rect x="0" y="15" width="12" height="30"></rect><rect x="20" y="15" width="12" height="30"></rect><rect x="40" y="15" width="12" height="30"></rect></g>
-                    <text id="logo-text" x="70" y="50">SUBTONE</text>
-                </svg>
+    <!-- ============ LANDING ============ -->
+    <main id="landing" class="landing">
+        <header class="mast">
+            <div class="mast-col">
+                <a href="./" class="brand">
+                    <svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>
+                    <span class="wordmark">subtone</span>
+                </a>
+                <p class="mono-s">AN IMAGE TOY · Nº 2<br>DITHER, HALFTONE &amp; OTHER RETRO DAMAGE</p>
             </div>
-            <button id="exportButtonHeader" class="action-button icon-button hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-            </button>
+            <a class="mast-by mono-s" href="https://jotaverse.com.br">A JOTAVERSE THING ↗</a>
         </header>
 
-        <!-- Canvas Area -->
-        <div id="canvas-wrapper" class="canvas-wrapper">
-            <div id="upload-placeholder" class="upload-placeholder">
-                <div class="upload-placeholder-content">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    <h2 class="placeholder-title">Click to upload an image</h2>
-                    <p class="placeholder-text">Or drag and drop a file here</p>
+        <section class="hero">
+            <div class="hero-copy">
+                <h1 class="visually-hidden">Subtone</h1>
+                <div class="steps">
+                    <p class="label">how it works</p>
+                    <ol>
+                        <li><span>01</span>Drop an image</li>
+                        <li><span>02</span>Pick an effect</li>
+                        <li><span>03</span>Tweak and compare</li>
+                        <li><span>04</span>Export</li>
+                    </ol>
+                </div>
+                <div class="cta">
+                    <button type="button" id="uploadButton" class="btn btn-primary btn-lg">
+                        <span>Choose an image</span><kbd>U</kbd>
+                    </button>
+                    <p class="mono-s">or drop one anywhere on the page</p>
                 </div>
             </div>
-            <canvas id="imageCanvas" class="hidden"></canvas>
-            <div id="slider-tooltip" class="slider-tooltip hidden"></div>
-        </div>
 
-        <!-- Mobile Footer -->
-        <footer id="footer-bar" class="footer-bar">
-            <div id="effects-menu" class="effects-menu">
-                <!-- Effects (mobile) will be inserted here by JS -->
-            </div>
-            <button id="toggle-controls-btn" class="action-button icon-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-            </button>
-        </footer>
-
-        <!-- Controls Panel (Sidebar on Desktop) -->
-        <div id="controls-panel" class="controls-panel">
-            <div class="panel-header-desktop">
-                <div class="logo-container-desktop">
-                    <svg class="static-subtone-logo-desktop" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
-                        <g id="icon"><rect x="0" y="15" width="12" height="30"></rect><rect x="20" y="15" width="12" height="30"></rect><rect x="40" y="15" width="12" height="30"></rect></g>
-                        <text id="logo-text" x="70" y="50">SUBTONE</text>
-                    </svg>
+            <figure class="demo">
+                <div class="demo-screen" id="demoScreen">
+                    <canvas id="demoCanvas" width="400" height="300" aria-label="A bouncing checkered ball, rendered live through the selected effect" role="img"></canvas>
+                    <canvas id="demoLoupe" class="loupe" width="160" height="160" aria-hidden="true"></canvas>
                 </div>
+                <figcaption class="demo-caption">
+                    <span class="label">fig. <span id="demo-index">01</span> · live</span>
+                    <div id="demo-effects" class="demo-effects" role="group" aria-label="Preview an effect"></div>
+                </figcaption>
+            </figure>
+
+            <!-- a paper receipt left on the desk -->
+            <aside class="slip" aria-label="What is in the box">
+                <p class="slip-head"><svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>SUBTONE</p>
+                <p class="slip-meta"><span>RECEIPT Nº 0002</span><span id="slip-date"></span></p>
+                <div class="slip-rule"></div>
+                <ul class="slip-lines">
+                    <li><span><span id="slip-effects">00</span> effects</span><i></i><span>incl.</span></li>
+                    <li><span>23 color presets</span><i></i><span>incl.</span></li>
+                    <li><span>04 adjustments</span><i></i><span>incl.</span></li>
+                    <li><span>03 export formats</span><i></i><span>incl.</span></li>
+                    <li><span>files uploaded</span><i></i><span>0</span></li>
+                </ul>
+                <div class="slip-rule"></div>
+                <p class="slip-total"><span>TOTAL</span><span>0,00</span></p>
+                <p class="slip-note">everything runs in your browser.<br>thank you, come again.</p>
+                <div class="slip-barcode" aria-hidden="true"></div>
+            </aside>
+        </section>
+    </main>
+
+    <!-- ============ EDITOR ============ -->
+    <div id="editor" class="editor" hidden>
+        <section class="stage" aria-label="Canvas">
+            <div class="stage-canvas">
+                <canvas id="imageCanvas"></canvas>
+                <span id="compare-badge" class="compare-badge label" hidden>original</span>
+                <div id="busy" class="busy label" hidden>processing</div>
             </div>
-            
-            <div class="panel-header-mobile">
-                <h2 class="panel-title">CONTROLS</h2>
-                <button id="close-panel-btn" class="action-button icon-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+            <div class="stage-tools" role="toolbar" aria-label="Image tools">
+                <button type="button" class="tool" id="compareButton" title="Hold to see the original (space)" aria-label="Hold to compare with original">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16"/><path d="M12 4h9v16h-9z" class="fill"/></svg>
+                </button>
+                <button type="button" class="tool" id="replaceButton" title="New image (U)" aria-label="Upload a new image">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+                </button>
+                <button type="button" class="tool" id="exportButtonStage" title="Export (S)" aria-label="Export image">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg>
                 </button>
             </div>
 
-            <div id="controls-main" class="panel-content">
-                <button id="uploadButton" class="action-button full-width">
-                    <span>UPLOAD MEDIA</span>
-                    <span class="button-hint">[.jpg, .png]</span>
+            <!-- effect picker: a contact sheet of the current image through every effect -->
+            <nav id="effects-menu" class="filmstrip" aria-label="Effects"></nav>
+        </section>
+
+        <aside class="panel" aria-label="Controls">
+            <header class="panel-head">
+                <button type="button" class="brand" id="homeButton" title="Back to start">
+                    <svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>
+                    <span class="wordmark">subtone</span>
                 </button>
-                <input type="file" id="fileInput" class="visually-hidden-input" accept="image/png, image/jpeg"/>
-                
-                <div class="effects-menu-desktop-container hide-on-mobile">
-                    <h3 class="effects-menu-title">/EFFECTS</h3>
-                    <div id="effects-menu-desktop" class="effects-menu-desktop"></div>
+                <p class="mono-s" id="image-meta">no image</p>
+            </header>
+
+            <div class="tabs" role="tablist">
+                <button type="button" role="tab" class="tab" id="tab-effect" aria-controls="pane-effect" aria-selected="true">Effect</button>
+                <button type="button" role="tab" class="tab" id="tab-adjust" aria-controls="pane-adjust" aria-selected="false">Adjust</button>
+                <button type="button" role="tab" class="tab" id="tab-export" aria-controls="pane-export" aria-selected="false">Export</button>
+            </div>
+
+            <div id="controls-main" class="panel-body">
+                <div class="pane" id="pane-effect" role="tabpanel" aria-labelledby="tab-effect">
+                    <header class="effect-head">
+                        <p class="label" id="active-effect-group"></p>
+                        <h2 class="effect-title" id="active-effect-name"></h2>
+                    </header>
+                    <div id="effect-controls" class="effect-controls"></div>
                 </div>
 
-                <div class="accordion-container">
-                    <div class="accordion-item">
-                        <button class="accordion-header">
-                            <span>--Preprocessing--</span>
-                            <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <div class="controls-section preprocessing-panel">
-                                    <div>
-                                        <div class="control-row-flex"><label for="contrast">Contrast</label><span id="contrastValue">1</span></div>
-                                        <input type="range" id="contrast" name="contrast" min="0" max="3" value="1" step="0.1" class="slider">
-                                    </div>
-                                    <div>
-                                        <div class="control-row-flex"><label for="clarity">Clarity</label><span id="clarityValue">0</span></div>
-                                        <input type="range" id="clarity" name="clarity" min="0" max="5" value="0" step="0.1" class="slider">
-                                    </div>
-                                     <div>
-                                        <div class="control-row-flex"><label for="gamma">Gamma</label><span id="gammaValue">1</span></div>
-                                        <input type="range" id="gamma" name="gamma" min="0.1" max="3" value="1" step="0.1" class="slider">
-                                    </div>
-                                    <div>
-                                        <div class="control-row-flex"><label for="grain">Grain</label><span id="grainValue">0</span></div>
-                                        <input type="range" id="grain" name="grain" min="0" max="100" value="0" class="slider">
-                                    </div>
-                                </div>
-                            </div>
+                <div class="pane preprocessing-panel" id="pane-adjust" role="tabpanel" aria-labelledby="tab-adjust" hidden>
+                    <p class="label">applied before the effect</p>
+                    <div class="controls-section">
+                        <div>
+                            <div class="control-row-flex"><label for="contrast">Contrast</label><span id="contrastValue">1</span></div>
+                            <input type="range" id="contrast" name="contrast" min="0" max="3" value="1" step="0.1">
+                        </div>
+                        <div>
+                            <div class="control-row-flex"><label for="clarity">Clarity</label><span id="clarityValue">0</span></div>
+                            <input type="range" id="clarity" name="clarity" min="0" max="5" value="0" step="0.1">
+                        </div>
+                        <div>
+                            <div class="control-row-flex"><label for="gamma">Gamma</label><span id="gammaValue">1</span></div>
+                            <input type="range" id="gamma" name="gamma" min="0.1" max="3" value="1" step="0.1">
+                        </div>
+                        <div>
+                            <div class="control-row-flex"><label for="grain">Grain</label><span id="grainValue">0</span></div>
+                            <input type="range" id="grain" name="grain" min="0" max="100" value="0">
                         </div>
                     </div>
-                    <div id="effect-controls-accordion-item" class="accordion-item"></div>
+                    <button type="button" id="resetAdjustButton" class="btn btn-block">Reset adjustments</button>
                 </div>
-                
-                <button id="exportButtonPanel" class="action-button full-width hidden">
-                    <span>EXPORT IMAGE</span>
-                </button>
+
+                <div class="pane" id="pane-export" role="tabpanel" aria-labelledby="tab-export" hidden>
+                    <p class="label">format</p>
+                    <div id="format-selector" class="pattern-selector">
+                        <button type="button" class="pattern-btn active" data-format="png">PNG</button>
+                        <button type="button" class="pattern-btn" data-format="jpeg">JPG</button>
+                        <button type="button" class="pattern-btn" data-format="webp">WebP</button>
+                    </div>
+                    <p class="mono-s pane-note">PNG keeps every dithered pixel exact. JPG and WebP are smaller but blur the pattern.</p>
+                </div>
             </div>
-        </div>
-        <div id="panel-overlay" class="panel-overlay"></div>
+
+            <footer class="panel-foot">
+                <button type="button" id="exportButtonPanel" class="btn btn-primary btn-block"><span>Export image</span><kbd>S</kbd></button>
+                <button type="button" id="replaceButtonPanel" class="btn btn-block"><span>New image</span><kbd>U</kbd></button>
+            </footer>
+        </aside>
     </div>
 
-    <!-- Scripts -->
+    <div id="drop-veil" class="drop-veil" hidden>
+        <p>drop it</p>
+    </div>
+
     <script src="src/app.js" type="module"></script>
 </body>
 </html>

@@ -22,11 +22,15 @@ export const getInitialState = () => ({
     effects: {
         dithering: {
             pixelSize: 1,
-            usePalette: true,
             ditheringPattern: 'Bayer',
+            // mono | duotone | tritone | multi | rgb
+            colorMode: 'tritone',
+            // Cada modo guarda as próprias cores, para trocar de modo sem perder a escolha.
+            duoColors: ['#151412', '#7d93ff'],
+            triColors: ['#151412', '#2440b3', '#ece8de'],
+            multiColors: ['#0f380f', '#306230', '#8bac8b', '#9bbc9b'],
             threshold: 128,
-            colorCount: 8,
-            palette: 'GameBoy',
+            rgbLevels: 2,
             glow: 0,
         },
         crt: {
@@ -70,6 +74,28 @@ export const getInitialState = () => ({
             y2kVignette: 0.3,
             y2kTimestamp: true,
             y2kCustomTimestamp: ""
+        },
+        oil: {
+            oilBrush: 5,
+            oilStroke: 10,
+            oilImpasto: 0.6,
+            oilCanvas: 0.25,
+            oilSaturation: 1.15,
+        },
+        watercolor: {
+            wcSimplify: 4,
+            wcWobble: 3,
+            wcEdges: 0.5,
+            wcGranulation: 0.5,
+            wcPaper: 0.5,
+            wcWash: 0.3,
+        },
+        acrylic: {
+            acrBrush: 4,
+            acrStroke: 6,
+            acrLevels: 9,
+            acrSaturation: 1.3,
+            acrTexture: 0.5,
         },
     }
 });

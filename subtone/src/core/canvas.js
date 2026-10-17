@@ -73,13 +73,15 @@ export class CanvasController {
     }
 
     /**
-     * Inicia o download do conteúdo atual do canvas como uma imagem PNG.
-     * @param {string} filename - O nome do arquivo para o download.
+     * Inicia o download do conteúdo atual do canvas.
+     * @param {string} filename - O nome do arquivo para o download, sem extensão.
+     * @param {string} format - 'png', 'jpeg' ou 'webp'.
      */
-    export(filename) {
+    export(filename, format = 'png') {
+        const extension = format === 'jpeg' ? 'jpg' : format;
         const link = document.createElement('a');
-        link.download = filename;
-        link.href = this.canvas.toDataURL('image/png');
+        link.download = `${filename}.${extension}`;
+        link.href = this.canvas.toDataURL(`image/${format}`, 0.92);
         link.click();
     }
 }

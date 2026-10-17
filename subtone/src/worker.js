@@ -17,6 +17,9 @@ import { palMEffect } from './effects/pal-m.js';
 import { asciiEffect } from './effects/ascii.js';
 import { pixelSortingEffect } from './effects/pixel-sort.js';
 import { y2kCamEffect } from './effects/y2k-cam.js';
+import { oilEffect } from './effects/oil.js';
+import { watercolorEffect } from './effects/watercolor.js';
+import { acrylicEffect } from './effects/acrylic.js';
 
 // Mapeia os efeitos importados para um objeto para fácil acesso.
 const EFFECTS_LIBRARY = {
@@ -27,6 +30,9 @@ const EFFECTS_LIBRARY = {
     ascii: asciiEffect,
     "pixel-sort": pixelSortingEffect,
     "y2k-cam": y2kCamEffect,
+    oil: oilEffect,
+    watercolor: watercolorEffect,
+    acrylic: acrylicEffect,
 };
 
 /**

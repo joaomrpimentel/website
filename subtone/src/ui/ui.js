@@ -1,130 +1,76 @@
 /**
  * src/ui/ui.js
- * * Gerencia todos os componentes e interações da interface do usuário que não
- * são diretamente relacionados ao canvas ou aos controles de efeitos.
+ * * Gerencia os componentes da interface que não são diretamente
+ * relacionados ao canvas ou aos controles de efeitos.
  * * Responsabilidades:
- * - Lógica do painel lateral/inferior (abrir/fechar).
- * - Funcionalidade do componente acordeão.
- * - Exibição e posicionamento dos tooltips dos sliders.
+ * - Troca entre a tela inicial e o editor.
+ * - Abas do painel de controles.
+ * - Atalhos de teclado.
  */
-
-// Variáveis de escopo do módulo para o painel, para evitar buscas repetidas no DOM.
-let panel, overlay;
+import { EFFECT_IDS } from '../core/effectsManager.js';
 
 /**
- * Alterna a visibilidade do painel de controles e do overlay.
- * @param {boolean} open - Força o painel a abrir (true) ou fechar (false).
+ * Mostra o editor ou volta para a tela inicial.
+ * @param {boolean} editing - true para o editor, false para a tela inicial.
  */
-export function toggleControlsPanel(open) {
-    if (panel && overlay) {
-        panel.classList.toggle('open', open);
-        overlay.classList.toggle('open', open);
-        // Impede o scroll do corpo da página quando o painel está aberto em mobile.
-        document.body.style.overflow = open ? 'hidden' : '';
-    }
+export function showEditor(editing) {
+    document.getElementById('landing').hidden = editing;
+    document.getElementById('editor').hidden = !editing;
 }
 
 /**
  * Função principal que inicializa todos os componentes da UI.
  * É chamada uma vez no `app.js`.
+ * @param {Object} app - A instância da aplicação, usada pelos atalhos.
  */
-export function initUI() {
-    initPanel();
-    initAccordion();
-    initSliderTooltips();
+export function initUI(app) {
+    initTabs();
+    initShortcuts(app);
 }
 
 /**
- * Inicializa a lógica do painel deslizante (mobile).
+ * Inicializa as abas do painel (Effect / Adjust / Export).
  */
-function initPanel() {
-    const toggleBtn = document.getElementById('toggle-controls-btn');
-    const closeBtn = document.getElementById('close-panel-btn');
-    panel = document.getElementById('controls-panel');
-    overlay = document.getElementById('panel-overlay');
+function initTabs() {
+    const tabs = [...document.querySelectorAll('.tab')];
 
-    toggleBtn.addEventListener('click', () => toggleControlsPanel(true));
-    closeBtn.addEventListener('click', () => toggleControlsPanel(false));
-    overlay.addEventListener('click', () => toggleControlsPanel(false));
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+            const selected = t === tab;
+            t.setAttribute('aria-selected', selected);
+            document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+        });
+    }));
 }
 
 /**
- * Inicializa a lógica das seções de acordeão no painel de controles.
+ * Atalhos: 1-9 escolhem o efeito, U abre o upload, S exporta,
+ * e segurar espaço mostra a imagem original.
  */
-function initAccordion() {
-    const container = document.querySelector('.accordion-container');
-    
-    container.addEventListener('click', (e) => {
-        const header = e.target.closest('.accordion-header');
-        if (!header) return;
+function initShortcuts(app) {
+    const isTyping = (e) => e.target.closest('input[type="text"], select, textarea');
 
-        const content = header.nextElementSibling;
+    window.addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey || isTyping(e)) return;
+        const editing = !document.getElementById('editor').hidden;
+        const key = e.key.toLowerCase();
 
-        // Alterna a classe 'active' para a animação do ícone.
-        header.classList.toggle('active');
-        
-        // Anima a abertura/fechamento do conteúdo.
-        if (content.style.maxHeight) {
-            content.style.maxHeight = null;
-            content.classList.remove('open');
-        } else {
-            content.classList.add('open');
-            // Define a altura máxima para o tamanho real do conteúdo para animar.
-            content.style.maxHeight = (content.scrollHeight) + "px";
-        }
-    });
-}
-
-/**
- * Inicializa a lógica dos tooltips que aparecem ao arrastar os sliders.
- */
-function initSliderTooltips() {
-    const tooltip = document.getElementById('slider-tooltip');
-    const controlsMain = document.getElementById('controls-main');
-
-    let activeSlider = null;
-
-    /**
-     * Atualiza a posição e o texto do tooltip com base no slider ativo.
-     * @param {HTMLInputElement} slider - O slider que está sendo movido.
-     */
-    const updateTooltip = (slider) => {
-        if (!slider) return;
-        
-        const value = slider.value;
-        tooltip.textContent = value;
-        
-        const rect = slider.getBoundingClientRect();
-        // Calcula a posição do "polegar" (thumb) do slider.
-        const thumbPosition = (value - slider.min) / (slider.max - slider.min);
-        const thumbX = rect.left + thumbPosition * rect.width;
-
-        // Posiciona o tooltip acima do polegar.
-        tooltip.style.left = `${thumbX}px`;
-        tooltip.style.top = `${rect.top - 10}px`;
-    };
-
-    // Mostra o tooltip ao pressionar um slider.
-    controlsMain.addEventListener('pointerdown', (e) => {
-        if (e.target.type === 'range') {
-            activeSlider = e.target;
-            tooltip.classList.remove('hidden');
-            updateTooltip(activeSlider);
+        if (key === 'u') {
+            app.dom.fileInput.click();
+        } else if (!editing) {
+            return;
+        } else if (key === 's') {
+            e.preventDefault();
+            app.exportImage();
+        } else if (e.code === 'Space') {
+            e.preventDefault();
+            if (!e.repeat) app.showOriginal(true);
+        } else if (/^[1-9]$/.test(key) && EFFECT_IDS[key - 1]) {
+            app.setActiveEffect(EFFECT_IDS[key - 1]);
         }
     });
 
-    // Esconde o tooltip ao soltar o clique em qualquer lugar.
-    window.addEventListener('pointerup', () => {
-        if (activeSlider) {
-            tooltip.classList.add('hidden');
-            activeSlider = null;
-        }
-    });
-
-    // Atualiza o tooltip enquanto o slider é movido.
-    controlsMain.addEventListener('input', (e) => {
-        if (e.target.type === 'range' && activeSlider) {
-            updateTooltip(e.target);
-        }
+    window.addEventListener('keyup', (e) => {
+        if (e.code === 'Space') app.showOriginal(false);
     });
 }
