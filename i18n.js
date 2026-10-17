@@ -64,10 +64,10 @@
     };
     const PT_JS = {
         'js-copied': 'email copiado ✓',
-        'pet-pick': 'me pega', 'pet-feed': 'alimentar', 'pet-play': 'brincar',
+        'pet-pick': 'me pega', 'pet-feed': 'dar comida', 'pet-play': 'brincar',
         'pet-off': 'apagar a luz', 'pet-on': 'acender a luz', 'pet-flap': 'bater asas', 'pet-back': 'voltar', 'pet-zzz': 'zzz',
-        'pet-picked': 'Você pegou o Byte. Esquerda alimenta, meio brinca, direita apaga a luz. Esc devolve.',
-        'pet-ate': 'O Byte comeu um byte.', 'pet-full': 'O Byte está cheio.',
+        'pet-picked': 'Você pegou o Byte. O botão da esquerda dá comida, o do meio brinca e o da direita apaga a luz. Esc devolve.',
+        'pet-ate': 'O Byte comeu um byte.', 'pet-full': 'O Byte está de barriga cheia.',
         'pet-dark': 'Luz apagada. O Byte está dormindo.', 'pet-light': 'Luz acesa.',
         'pet-fly': 'Qualquer botão bate as asas. Voe entre as torres.',
         'pet-score': 'Placar {s}. Recorde {b}.',
