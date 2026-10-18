@@ -14,15 +14,15 @@ export const acrylicEffect = {
         <div class="control-panel">
             <div class="controls-section">
                 <div>
-                    <div class="control-row-flex"><label for="acrBrush">Brush Size</label><span id="acrBrushValue">4</span></div>
+                    <div class="control-row-flex"><label for="acrBrush">Brush size</label><span id="acrBrushValue">4</span></div>
                     <input type="range" id="acrBrush" name="acrBrush" min="1" max="12" value="4" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="acrStroke">Stroke Length</label><span id="acrStrokeValue">6</span></div>
+                    <div class="control-row-flex"><label for="acrStroke">Stroke length</label><span id="acrStrokeValue">6</span></div>
                     <input type="range" id="acrStroke" name="acrStroke" min="2" max="16" value="6" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="acrLevels">Color Levels</label><span id="acrLevelsValue">9</span></div>
+                    <div class="control-row-flex"><label for="acrLevels">Color levels</label><span id="acrLevelsValue">9</span></div>
                     <input type="range" id="acrLevels" name="acrLevels" min="2" max="16" value="9" step="1" class="slider">
                 </div>
                 <div>

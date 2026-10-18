@@ -30,7 +30,7 @@ export const watercolorEffect = {
                     <input type="range" id="wcWobble" name="wcWobble" min="0" max="12" value="3" step="0.5" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="wcEdges">Edge Darkening</label><span id="wcEdgesValue">0.5</span></div>
+                    <div class="control-row-flex"><label for="wcEdges">Edge darkening</label><span id="wcEdgesValue">0.5</span></div>
                     <input type="range" id="wcEdges" name="wcEdges" min="0" max="1" value="0.5" step="0.05" class="slider">
                 </div>
                 <div>
@@ -38,7 +38,7 @@ export const watercolorEffect = {
                     <input type="range" id="wcGranulation" name="wcGranulation" min="0" max="1" value="0.5" step="0.05" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="wcPaper">Paper Texture</label><span id="wcPaperValue">0.5</span></div>
+                    <div class="control-row-flex"><label for="wcPaper">Paper texture</label><span id="wcPaperValue">0.5</span></div>
                     <input type="range" id="wcPaper" name="wcPaper" min="0" max="1" value="0.5" step="0.05" class="slider">
                 </div>
                 <div>

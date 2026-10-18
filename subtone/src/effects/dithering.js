@@ -344,7 +344,7 @@ export const ditheringEffect = {
                 </div>
 
                 <div>
-                    <div class="control-row-flex"><label for="pixelSize">Pixel Size</label><span id="pixelSizeValue">1</span></div>
+                    <div class="control-row-flex"><label for="pixelSize">Pixel size</label><span id="pixelSizeValue">1</span></div>
                     <input type="range" id="pixelSize" name="pixelSize" min="1" max="20" value="1" class="slider">
                 </div>
 

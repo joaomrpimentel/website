@@ -12,11 +12,11 @@ export const halftoneEffect = {
             <h3 class="panel-title">--Effect Controls--</h3>
             <div class="controls-section">
                 <div>
-                    <div class="control-row-flex"><label for="halftoneGridSize">Grid Size</label><span id="halftoneGridSizeValue">10</span></div>
+                    <div class="control-row-flex"><label for="halftoneGridSize">Grid size</label><span id="halftoneGridSizeValue">10</span></div>
                     <input type="range" id="halftoneGridSize" name="halftoneGridSize" min="2" max="50" value="10" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="halftoneDotScale">Dot Scale</label><span id="halftoneDotScaleValue">1</span></div>
+                    <div class="control-row-flex"><label for="halftoneDotScale">Dot scale</label><span id="halftoneDotScaleValue">1</span></div>
                     <input type="range" id="halftoneDotScale" name="halftoneDotScale" min="0.1" max="2" value="1" step="0.05" class="slider">
                 </div>
                 <div class="control-row-flex">
@@ -24,7 +24,7 @@ export const halftoneEffect = {
                     <label class="switch"><input type="checkbox" id="halftoneGrayscale"><span class="switch-slider"></span></label>
                 </div>
                 <div class="control-row-flex">
-                    <label for="halftoneIsBgBlack">Black Background</label>
+                    <label for="halftoneIsBgBlack">Black background</label>
                     <label class="switch"><input type="checkbox" id="halftoneIsBgBlack"><span class="switch-slider"></span></label>
                 </div>
             </div>

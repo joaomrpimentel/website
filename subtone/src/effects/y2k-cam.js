@@ -86,11 +86,11 @@ export const y2kCamEffect = {
                     <input type="range" id="y2kVignette" name="y2kVignette" min="0" max="1" value="0.3" step="0.05" class="slider">
                 </div>
                  <div class="control-row-flex">
-                    <label for="y2kTimestamp">Show Timestamp</label>
+                    <label for="y2kTimestamp">Show timestamp</label>
                     <label class="switch"><input type="checkbox" id="y2kTimestamp" name="y2kTimestamp" checked><span class="switch-slider"></span></label>
                 </div>
                 <div id="y2k-timestamp-text-control" class="control-row">
-                    <label for="y2kCustomTimestamp">Timestamp Text</label>
+                    <label for="y2kCustomTimestamp">Timestamp text</label>
                     <input type="text" id="y2kCustomTimestamp" name="y2kCustomTimestamp" class="text-input" placeholder="DD.MM.'YY" maxlength="9">
                 </div>
             </div>

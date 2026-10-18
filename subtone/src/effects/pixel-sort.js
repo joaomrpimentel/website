@@ -22,7 +22,7 @@ export const pixelSortingEffect = {
                     </div>
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="sortThreshold">Sort Threshold</label><span id="sortThresholdValue">100</span></div>
+                    <div class="control-row-flex"><label for="sortThreshold">Sort threshold</label><span id="sortThresholdValue">100</span></div>
                     <input type="range" id="sortThreshold" name="sortThreshold" min="0" max="255" value="100" step="1" class="slider">
                 </div>
             </div>

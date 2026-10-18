@@ -1,7 +1,8 @@
 /* =========================================================
    SUBTONE
    the jotaverse paper with the lights off: dark ink, one blue
-   light, a dithered moon for a mark and a receipt left on the desk.
+   light, a dithered moon for a mark, and a landing that is
+   itself an image run through the effects.
    ========================================================= */
 
 :root {
@@ -107,57 +108,25 @@ kbd {
 
 /* =========================================================
    LANDING
+   the page is the demo: one canvas fills the window and is
+   rendered live through the effects, the words float on chips
    ========================================================= */
-.landing { display: flex; flex-direction: column; height: 100svh; overflow: hidden; }
+.landing { position: relative; min-height: 100svh; overflow: hidden; }
 
-/* --- masthead --- */
-.mast {
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem;
-    padding: 1.8rem var(--gut) 0;
-    animation: enter 0.5s var(--ease) both;
-}
-.mast-col { display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-.mast-by { text-decoration: none; color: var(--soft); transition: color 0.2s; }
-.mast-by:hover { color: var(--blue-lt); }
-
-/* --- hero --- */
-.hero {
-    flex: 1; min-height: 0;
-    display: grid;
-    grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.6fr) minmax(0, 0.7fr);
-    align-items: center;
-    gap: 2rem 3rem;
-    padding: 1.5rem var(--gut) 2rem;
-}
-
-.hero-copy { display: grid; gap: 2.2rem; align-self: end; animation: enter 0.6s 0.05s var(--ease) both; }
-.steps ol { list-style: none; margin: 0.8rem 0 0; padding: 0; border-top: 1px dashed var(--rule); }
-.steps li {
-    display: flex; align-items: baseline; gap: 1rem;
-    padding: 0.6rem 0; border-bottom: 1px dashed var(--rule);
-    font-size: 0.95rem; color: var(--soft);
-}
-.steps li span { font-family: var(--mono); font-size: 0.7rem; color: var(--blue-lt); }
-.cta { display: grid; justify-items: start; gap: 0.7rem; }
-
-/* --- the live demo --- */
-.demo {
-    margin: 0; justify-self: center;
-    /* as wide as the column allows, but never taller than the space left under the masthead */
-    width: min(100%, calc((100svh - 17rem) * 4 / 3));
-    animation: enter 0.7s 0.1s var(--ease) both;
-}
-.demo-screen { position: relative; cursor: crosshair; }
-#demoCanvas {
-    display: block; width: 100%; height: auto; aspect-ratio: 4 / 3;
+.backdrop {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: block;
     image-rendering: pixelated;
-    border-radius: 4px;
-    background: var(--ink-2);
-    box-shadow: 0 0 0 1px var(--rule), 0 40px 80px rgba(0,0,0,0.5);
+    background: var(--ink);
+    cursor: crosshair;
+    animation: fade-in 1s var(--ease) both;
 }
-/* a magnifier that shows the pattern up close */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* a magnifier that shows the pattern up close, following the cursor */
 .loupe {
-    position: absolute; left: 0; top: 0;
+    position: fixed; left: 0; top: 0; z-index: 3;
     width: 160px; height: 160px; border-radius: 50%;
     border: 2px solid var(--paper);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -168,8 +137,60 @@ kbd {
 }
 .loupe.on { opacity: 1; transform: scale(1); }
 
-.demo-caption { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem; margin-top: 1rem; }
-.demo-effects { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+/* the words. the layer lets the pointer through to the canvas,
+   only the chips themselves catch it */
+.overlay {
+    position: relative; z-index: 2;
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: var(--gut);
+    pointer-events: none;
+    /* a little shade top and bottom, where the chips sit */
+    background: linear-gradient(rgba(21,20,18,0.55), transparent 22%, transparent 70%, rgba(21,20,18,0.6));
+}
+.chip-box {
+    pointer-events: auto;
+    background: rgba(21, 20, 18, 0.92);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+/* --- masthead --- */
+.mast {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    animation: enter 0.5s var(--ease) both;
+}
+.mast-col { display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem; padding: 1rem 1.2rem; }
+.mast-by { padding: 0.55rem 0.8rem; text-decoration: none; color: var(--soft); transition: color 0.2s; }
+.mast-by:hover { color: var(--blue-lt); }
+.mast-end { display: flex; align-items: flex-start; gap: 0.5rem; }
+
+/* PT/EN: two small chips, like the effect chips */
+.lang-toggle { display: flex; gap: 2px; padding: 3px; }
+.lang-toggle button {
+    padding: 0.3rem 0.55rem; border: 0; border-radius: 3px;
+    background: none; color: var(--muted); cursor: pointer;
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em;
+    transition: color 0.15s, background-color 0.15s;
+}
+.lang-toggle button:hover { color: var(--paper); }
+.lang-toggle button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
+.lang-toggle:not(.chip-box) { border: 1px solid var(--rule); border-radius: 4px; }
+.panel-head-end { display: flex; align-items: center; gap: 0.8rem; }
+
+/* --- the dock: upload on the left, effects on the right --- */
+.dock {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
+    animation: enter 0.6s 0.1s var(--ease) both;
+}
+.dock-start { display: grid; justify-items: start; gap: 0.9rem; padding: 1.2rem; }
+.dock-end { display: grid; gap: 0.8rem; padding: 1rem 1.2rem; max-width: 34rem; }
+
+.steps { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; list-style: none; margin: 0; padding: 0; color: var(--soft); }
+.steps li span { margin-right: 0.4rem; color: var(--blue-lt); }
+
+.demo-effects { display: flex; flex-wrap: wrap; gap: 4px; }
 .demo-chip {
     padding: 0.32rem 0.6rem; border: 1px solid var(--rule); border-radius: 999px;
     background: none; color: var(--muted); cursor: pointer;
@@ -178,53 +199,6 @@ kbd {
 }
 .demo-chip:hover { color: var(--paper); border-color: var(--faint); }
 .demo-chip.active { background: var(--paper); border-color: var(--paper); color: var(--ink); }
-
-/* --- the receipt, left on the desk --- */
-.slip {
-    justify-self: end; align-self: end;
-    width: clamp(230px, 19vw, 290px);
-    padding: 1.4rem 1.3rem 1.8rem;
-    background: var(--noise), var(--paper);
-    color: #22211e;
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.04em;
-    transform: rotate(6deg);
-    transition: transform 0.45s var(--ease);
-    box-shadow: 0 1px 1px rgba(0,0,0,0.2), 0 24px 40px rgba(0,0,0,0.45);
-    /* torn bottom edge */
-    -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
-                  conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 12px 8px repeat-x;
-            mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
-                  conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 12px 8px repeat-x;
-    animation: drop-in 0.8s 0.25s var(--ease) both;
-}
-.slip:hover { transform: rotate(2deg) translateY(-6px); }
-/* animates `translate`, so the hover can keep using `transform` */
-@keyframes drop-in {
-    from { opacity: 0; translate: 40px 60px; }
-    to   { opacity: 1; translate: 0 0; }
-}
-.slip p { margin: 0; }
-.slip-head {
-    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    font-size: 0.8rem; letter-spacing: 0.3em; font-weight: 500;
-}
-.slip .mark { width: 16px; height: 16px; }
-.slip .mark-disc { fill: #cfcabd; }
-.slip .mark-lit { fill: var(--blue); }
-.slip-meta { display: flex; justify-content: space-between; margin-top: 0.9rem !important; color: #6d6a63; }
-.slip-rule { height: 1px; margin: 0.8rem 0; background: repeating-linear-gradient(to right, #22211e 0 2px, transparent 2px 5px); }
-.slip-lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
-.slip-lines li { display: flex; align-items: baseline; gap: 0.4rem; }
-.slip-lines i { flex: 1; border-bottom: 1px dotted #9a968c; }
-.slip-total { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 500; }
-.slip-note { margin-top: 1rem !important; text-align: center; line-height: 1.6; color: #6d6a63; }
-.slip-barcode {
-    height: 34px; margin-top: 1rem;
-    background: repeating-linear-gradient(90deg,
-        #22211e 0 2px, transparent 2px 3px, #22211e 3px 4px, transparent 4px 7px,
-        #22211e 7px 10px, transparent 10px 11px, #22211e 11px 12px, transparent 12px 15px,
-        #22211e 15px 16px, transparent 16px 18px);
-}
 
 /* =========================================================
    EDITOR
@@ -352,7 +326,16 @@ kbd {
 .pane > .label + * { margin-top: 0.8rem; }
 .pane-note { line-height: 1.6; }
 
-.effect-head { padding-bottom: 1.1rem; border-bottom: 1px dashed var(--rule); }
+.effect-head { position: relative; padding-bottom: 1.1rem; border-bottom: 1px dashed var(--rule); }
+/* reset of the active effect, small in the corner like a panel reset in a photo editor */
+.head-reset {
+    position: absolute; top: 0; right: 0;
+    padding: 0.2rem 0; border: 0; background: none;
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); cursor: pointer;
+    transition: color 0.2s;
+}
+.head-reset:hover { color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
 .effect-title { margin: 0.3rem 0 0; font-family: var(--pixel); font-weight: 400; font-size: 2.8rem; line-height: 0.9; }
 
 .panel-foot { display: grid; gap: 0.5rem; padding: 1rem 1.4rem 1.4rem; border-top: 1px solid var(--rule); }
@@ -443,21 +426,14 @@ input[type="range"]:focus-visible { outline: none; }
 /* =========================================================
    SMALLER SCREENS
    ========================================================= */
-@media (max-width: 1200px) {
-    .hero { grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.6fr); }
-    .slip { display: none; }
-}
-
 @media (max-width: 900px) {
-    .landing { height: auto; min-height: 100svh; overflow: visible; }
-    .mast { padding-top: 1.4rem; }
-    .demo { width: 100%; }
-    .hero { grid-template-columns: 1fr; padding: 1.5rem 16px 3rem; gap: 2rem; }
-    .demo { order: -1; }
-    .demo-caption { grid-template-columns: 1fr; }
-    .demo-effects { justify-content: flex-start; }
-    .slip { display: block; justify-self: center; transform: rotate(-3deg); animation: none; }
-    .slip:hover { transform: rotate(-1deg) translateY(-4px); }
+    .overlay { padding: 16px; gap: 1rem; justify-content: flex-start; }
+    /* the jotaverse link drops under the dock, so the top stays clear for the ball */
+    .mast { display: contents; }
+    .mast-end { order: 3; align-self: flex-start; }
+    .dock { flex-direction: column; align-items: stretch; margin-top: auto; }
+    .dock-start .btn { width: 100%; }
+    .dock-end { max-width: none; }
 
     .editor { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; min-height: 100svh; }
     .stage { grid-template-rows: 46svh auto; }
@@ -473,7 +449,7 @@ input[type="range"]:focus-visible { outline: none; }
 }
 
 @media (hover: none) {
-    .effect-item kbd, .cta kbd { display: none; }
+    .effect-item kbd, .dock-start kbd, .hover-only { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

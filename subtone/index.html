@@ -26,67 +26,52 @@
     <input type="file" id="fileInput" class="visually-hidden" accept="image/png, image/jpeg, image/webp">
 
     <!-- ============ LANDING ============ -->
+    <!-- the page is the demo: a full-bleed canvas rendered live through subtone's own effects,
+         with the words sitting on solid chips so they stay readable over the pattern -->
     <main id="landing" class="landing">
-        <header class="mast">
-            <div class="mast-col">
-                <a href="./" class="brand">
-                    <svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>
-                    <span class="wordmark">subtone</span>
-                </a>
-                <p class="mono-s">AN IMAGE TOY · Nº 2<br>DITHER, HALFTONE &amp; OTHER RETRO DAMAGE</p>
-            </div>
-            <a class="mast-by mono-s" href="https://jotaverse.com.br">A JOTAVERSE THING ↗</a>
-        </header>
+        <canvas id="demoCanvas" class="backdrop" aria-label="A bouncing checkered ball, rendered live through the selected effect" role="img"></canvas>
+        <canvas id="demoLoupe" class="loupe" width="160" height="160" aria-hidden="true"></canvas>
 
-        <section class="hero">
-            <div class="hero-copy">
-                <h1 class="visually-hidden">Subtone</h1>
-                <div class="steps">
-                    <p class="label">how it works</p>
-                    <ol>
-                        <li><span>01</span>Drop an image</li>
-                        <li><span>02</span>Pick an effect</li>
-                        <li><span>03</span>Tweak and compare</li>
-                        <li><span>04</span>Export</li>
-                    </ol>
+        <div class="overlay">
+            <header class="mast">
+                <div class="mast-col chip-box">
+                    <a href="./" class="brand">
+                        <svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>
+                        <span class="wordmark">subtone</span>
+                    </a>
+                    <p class="mono-s">DITHER, HALFTONE &amp; OTHER RETRO DAMAGE · RUNS IN YOUR BROWSER</p>
                 </div>
-                <div class="cta">
+                <div class="mast-end">
+                    <div class="lang-toggle chip-box" role="group" aria-label="Language">
+                    <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+                    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+                </div>
+                    <a class="mast-by mono-s chip-box" href="https://jotaverse.com.br/#works">A JOTAVERSE PROJECT ↗</a>
+                </div>
+            </header>
+
+            <h1 class="visually-hidden">Subtone</h1>
+
+            <footer class="dock">
+                <div class="dock-start chip-box">
+                    <ol class="steps mono-s">
+                        <li><span>01</span>drop</li>
+                        <li><span>02</span>pick</li>
+                        <li><span>03</span>tweak</li>
+                        <li><span>04</span>export</li>
+                    </ol>
                     <button type="button" id="uploadButton" class="btn btn-primary btn-lg">
                         <span>Choose an image</span><kbd>U</kbd>
                     </button>
                     <p class="mono-s">or drop one anywhere on the page</p>
                 </div>
-            </div>
 
-            <figure class="demo">
-                <div class="demo-screen" id="demoScreen">
-                    <canvas id="demoCanvas" width="400" height="300" aria-label="A bouncing checkered ball, rendered live through the selected effect" role="img"></canvas>
-                    <canvas id="demoLoupe" class="loupe" width="160" height="160" aria-hidden="true"></canvas>
-                </div>
-                <figcaption class="demo-caption">
-                    <span class="label">fig. <span id="demo-index">01</span> · live</span>
+                <div class="dock-end chip-box">
+                    <span class="label">fig. <span id="demo-index">01</span> · live<span class="hover-only"> · move the mouse to light it</span></span>
                     <div id="demo-effects" class="demo-effects" role="group" aria-label="Preview an effect"></div>
-                </figcaption>
-            </figure>
-
-            <!-- a paper receipt left on the desk -->
-            <aside class="slip" aria-label="What is in the box">
-                <p class="slip-head"><svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>SUBTONE</p>
-                <p class="slip-meta"><span>RECEIPT Nº 0002</span><span id="slip-date"></span></p>
-                <div class="slip-rule"></div>
-                <ul class="slip-lines">
-                    <li><span><span id="slip-effects">00</span> effects</span><i></i><span>incl.</span></li>
-                    <li><span>23 color presets</span><i></i><span>incl.</span></li>
-                    <li><span>04 adjustments</span><i></i><span>incl.</span></li>
-                    <li><span>03 export formats</span><i></i><span>incl.</span></li>
-                    <li><span>files uploaded</span><i></i><span>0</span></li>
-                </ul>
-                <div class="slip-rule"></div>
-                <p class="slip-total"><span>TOTAL</span><span>0,00</span></p>
-                <p class="slip-note">everything runs in your browser.<br>thank you, come again.</p>
-                <div class="slip-barcode" aria-hidden="true"></div>
-            </aside>
-        </section>
+                </div>
+            </footer>
+        </div>
     </main>
 
     <!-- ============ EDITOR ============ -->
@@ -102,7 +87,7 @@
                 <button type="button" class="tool" id="compareButton" title="Hold to see the original (space)" aria-label="Hold to compare with original">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16"/><path d="M12 4h9v16h-9z" class="fill"/></svg>
                 </button>
-                <button type="button" class="tool" id="replaceButton" title="New image (U)" aria-label="Upload a new image">
+                <button type="button" class="tool" id="replaceButton" title="New image (U)" aria-label="Open another image">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
                 </button>
                 <button type="button" class="tool" id="exportButtonStage" title="Export (S)" aria-label="Export image">
@@ -120,7 +105,13 @@
                     <svg class="mark" aria-hidden="true"><use href="#subtone-mark"/></svg>
                     <span class="wordmark">subtone</span>
                 </button>
-                <p class="mono-s" id="image-meta">no image</p>
+                <div class="panel-head-end">
+                    <p class="mono-s" id="image-meta">no image</p>
+                    <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+                    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+                </div>
+                </div>
             </header>
 
             <div class="tabs" role="tablist">
@@ -134,6 +125,7 @@
                     <header class="effect-head">
                         <p class="label" id="active-effect-group"></p>
                         <h2 class="effect-title" id="active-effect-name"></h2>
+                        <button type="button" id="resetEffectButton" class="head-reset" title="Reset this effect to its defaults">Reset</button>
                     </header>
                     <div id="effect-controls" class="effect-controls"></div>
                 </div>

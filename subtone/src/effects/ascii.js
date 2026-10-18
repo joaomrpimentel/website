@@ -102,22 +102,22 @@ export const asciiEffect = {
                     <input type="range" id="asciiResolution" name="asciiResolution" min="4" max="32" value="8" step="1" class="slider">
                 </div>
                 <div>
-                    <label>Font Style</label>
+                    <label>Font style</label>
                     <div id="ascii-font-selector" class="pattern-selector">
                         <button class="pattern-btn active" data-font="mono">Mono</button>
                         <button class="pattern-btn" data-font="retro">Retro</button>
                     </div>
                 </div>
                 <div class="control-row-flex">
-                    <label for="asciiIsColor">Enable Color</label>
+                    <label for="asciiIsColor">Use color</label>
                     <label class="switch"><input type="checkbox" id="asciiIsColor" name="asciiIsColor" checked><span class="switch-slider"></span></label>
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="asciiColorBoost">Color Boost</label><span id="asciiColorBoostValue">1.5</span></div>
+                    <div class="control-row-flex"><label for="asciiColorBoost">Color boost</label><span id="asciiColorBoostValue">1.5</span></div>
                     <input type="range" id="asciiColorBoost" name="asciiColorBoost" min="0.5" max="5" value="1.5" step="0.1" class="slider">
                 </div>
                  <div class="control-row-flex">
-                    <label for="asciiInvert">Invert Image</label>
+                    <label for="asciiInvert">Invert image</label>
                     <label class="switch"><input type="checkbox" id="asciiInvert" name="asciiInvert"><span class="switch-slider"></span></label>
                 </div>
             </div>

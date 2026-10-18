@@ -14,11 +14,11 @@ export const oilEffect = {
         <div class="control-panel">
             <div class="controls-section">
                 <div>
-                    <div class="control-row-flex"><label for="oilBrush">Brush Size</label><span id="oilBrushValue">5</span></div>
+                    <div class="control-row-flex"><label for="oilBrush">Brush size</label><span id="oilBrushValue">5</span></div>
                     <input type="range" id="oilBrush" name="oilBrush" min="1" max="12" value="5" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="oilStroke">Stroke Length</label><span id="oilStrokeValue">10</span></div>
+                    <div class="control-row-flex"><label for="oilStroke">Stroke length</label><span id="oilStrokeValue">10</span></div>
                     <input type="range" id="oilStroke" name="oilStroke" min="2" max="24" value="10" step="1" class="slider">
                 </div>
                 <div>
@@ -26,7 +26,7 @@ export const oilEffect = {
                     <input type="range" id="oilImpasto" name="oilImpasto" min="0" max="1" value="0.6" step="0.05" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="oilCanvas">Canvas Texture</label><span id="oilCanvasValue">0.25</span></div>
+                    <div class="control-row-flex"><label for="oilCanvas">Canvas texture</label><span id="oilCanvasValue">0.25</span></div>
                     <input type="range" id="oilCanvas" name="oilCanvas" min="0" max="1" value="0.25" step="0.05" class="slider">
                 </div>
                 <div>

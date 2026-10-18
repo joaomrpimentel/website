@@ -11,19 +11,19 @@ export const palMEffect = {
             <h3 class="panel-title">--Effect Controls--</h3>
             <div class="controls-section">
                 <div>
-                    <div class="control-row-flex"><label for="palamBleed">Color Bleed</label><span id="palamBleedValue">8</span></div>
+                    <div class="control-row-flex"><label for="palamBleed">Color bleed</label><span id="palamBleedValue">8</span></div>
                     <input type="range" id="palamBleed" name="palamBleed" min="0" max="40" value="8" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="palamScanlines">Scanline Intensity</label><span id="palamScanlinesValue">0.3</span></div>
+                    <div class="control-row-flex"><label for="palamScanlines">Scanline intensity</label><span id="palamScanlinesValue">0.3</span></div>
                     <input type="range" id="palamScanlines" name="palamScanlines" min="0" max="1" value="0.3" step="0.05" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="palamScanlineGap">Scanline Gap</label><span id="palamScanlineGapValue">2</span></div>
+                    <div class="control-row-flex"><label for="palamScanlineGap">Scanline gap</label><span id="palamScanlineGapValue">2</span></div>
                     <input type="range" id="palamScanlineGap" name="palamScanlineGap" min="2" max="16" value="2" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="palamNoise">Signal Noise</label><span id="palamNoiseValue">0.15</span></div>
+                    <div class="control-row-flex"><label for="palamNoise">Signal noise</label><span id="palamNoiseValue">0.15</span></div>
                     <input type="range" id="palamNoise" name="palamNoise" min="0" max="1" value="0.15" step="0.01" class="slider">
                 </div>
                 <div>
@@ -35,7 +35,7 @@ export const palMEffect = {
                     <input type="range" id="palamSaturation" name="palamSaturation" min="0" max="3" value="1.0" step="0.1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="palamPhaseShift">Phase Shift</label><span id="palamPhaseShiftValue">2</span></div>
+                    <div class="control-row-flex"><label for="palamPhaseShift">Phase shift</label><span id="palamPhaseShiftValue">2</span></div>
                     <input type="range" id="palamPhaseShift" name="palamPhaseShift" min="0" max="10" value="2" step="0.1" class="slider">
                 </div>
             </div>

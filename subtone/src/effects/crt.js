@@ -23,11 +23,11 @@ export const crtEffect = {
                     <input type="range" id="crtDistortion" name="crtDistortion" min="0" max="0.1" value="0.03" step="0.005" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="crtDotPitch">Dot Pitch</label><span id="crtDotPitchValue">4</span></div>
+                    <div class="control-row-flex"><label for="crtDotPitch">Dot pitch</label><span id="crtDotPitchValue">4</span></div>
                     <input type="range" id="crtDotPitch" name="crtDotPitch" min="1" max="10" value="4" step="1" class="slider">
                 </div>
                 <div>
-                    <div class="control-row-flex"><label for="crtDotScale">Dot Scale</label><span id="crtDotScaleValue">1</span></div>
+                    <div class="control-row-flex"><label for="crtDotScale">Dot scale</label><span id="crtDotScaleValue">1</span></div>
                     <input type="range" id="crtDotScale" name="crtDotScale" min="0.5" max="1.5" value="1" step="0.05" class="slider">
                 </div>
                 <div>

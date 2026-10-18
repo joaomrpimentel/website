@@ -9,6 +9,7 @@
  */
 import { initUI, showEditor } from './ui/ui.js';
 import { initLanding } from './ui/landing.js';
+import { initI18n } from './ui/i18n.js';
 import { getInitialState } from './core/state.js';
 import { CanvasController } from './core/canvas.js';
 import { EffectsManager, EFFECT_IDS } from './core/effectsManager.js';
@@ -54,6 +55,7 @@ class ImageProcessorApp {
      * Inicializa a aplicação, configurando a UI, os listeners e o efeito inicial.
      */
     init() {
+        initI18n();
         initUI(this);
         initLanding();
         this.effectsManager.renderEffectSelector();
@@ -76,6 +78,7 @@ class ImageProcessorApp {
             compareBadge: document.getElementById('compare-badge'),
             homeButton: document.getElementById('homeButton'),
             resetAdjustButton: document.getElementById('resetAdjustButton'),
+            resetEffectButton: document.getElementById('resetEffectButton'),
             formatSelector: document.getElementById('format-selector'),
             effectsMenu: document.getElementById('effects-menu'),
             effectControlsContainer: document.getElementById('effect-controls'),
@@ -125,6 +128,9 @@ class ImageProcessorApp {
             this.applyEffects();
             this.refreshActiveThumbnail();
         });
+
+        // Volta só o efeito ativo pros valores iniciais; os outros guardam o que a pessoa mexeu.
+        this.dom.resetEffectButton.addEventListener('click', () => this.resetActiveEffect());
 
         this.dom.formatSelector.addEventListener('click', (e) => {
             const btn = e.target.closest('.pattern-btn');
@@ -323,6 +329,16 @@ class ImageProcessorApp {
         this.applyEffects();
 
         if (this.staleThumbs.delete(effectId)) this.scheduleThumbnails([effectId]);
+    }
+
+    async resetActiveEffect() {
+        const id = this.state.activeEffect;
+        this.state.effects[id] = getInitialState().effects[id];
+        // Os controles são refeitos porque alguns (como as cores do dithering) dependem do estado.
+        await this.effectsManager.renderEffectControls(id, this);
+        this.updateAllControlValues();
+        this.applyEffects();
+        this.scheduleThumbnails([id]);
     }
 
     updateAllControlValues() {
