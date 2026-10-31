@@ -282,6 +282,7 @@
     egg.addEventListener('click', () => { if (!focused) pickUp(); });
     egg.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !focused && e.target === egg) { e.preventDefault(); pickUp(); } });
     document.addEventListener('click', (e) => { if (focused && !egg.contains(e.target)) putDown(); });
+    document.getElementById('close-pet')?.addEventListener('click', putDown);
     window.addEventListener('resize', () => { if (focused) { focused = false; pickUp(); } });
 
     // the keyboard presses the egg's buttons, it doesn't play on its own

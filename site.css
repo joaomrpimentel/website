@@ -199,6 +199,12 @@ body.pet-focus .mast, body.pet-focus .headline, body.pet-focus .tossed, body.pet
 }
 .mast, .headline, .tossed, .foot { transition: opacity 0.5s var(--ease); }
 
+.pet-close {
+    z-index: 60; opacity: 0; visibility: hidden;
+    transition: opacity 0.5s var(--ease), visibility 0.5s;
+}
+body.pet-focus .pet-close { opacity: 1; visibility: visible; }
+
 /* hints ride next to the cursor */
 .pet-hint {
     position: fixed; left: 0; top: 0; z-index: 80;
@@ -414,37 +420,63 @@ body.pet-focus .mast, body.pet-focus .headline, body.pet-focus .tossed, body.pet
     .ichthys { position: relative; right: auto; bottom: auto; margin: 3rem auto 0; }
 }
 
+/* ---------- tablets, and anything narrow and tall ----------
+   three columns leave a hole under the egg: the egg goes on top,
+   the sentence and the card share the row under it */
+@media (max-width: 960px), (max-width: 1100px) and (orientation: portrait) {
+    .view-home { display: block; }
+    .home { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: 2.4rem 2rem; }
+    .pet { grid-column: 1 / 3; grid-row: 1; margin-top: 0; }
+    .egg { width: min(48vw, 400px); }
+    .headline { grid-column: 1; grid-row: 2; align-self: center; }
+    .tossed { grid-column: 2; grid-row: 2; align-self: center; width: clamp(200px, 30vw, 300px); margin: 0 0.6rem 3rem 0; transform: rotate(6deg); }
+}
+
 /* ---------- small screens ---------- */
 @media (max-width: 760px) {
-    .mast { grid-template-columns: 1fr auto; gap: 1rem; padding-top: 1.2rem; }
+    /* name and role on the left, language on the right, the menu its own row under them */
+    .mast { grid-template-columns: 1fr auto; gap: 0.9rem 1rem; padding-top: 1.2rem; }
     .mast-contact, .mast-now, .mast-lang .label { display: none; }
-    .mast-id { grid-column: 1 / 3; grid-row: 1; }
-    .mast-menu { grid-column: 1; grid-row: 2; }
-    .mast-lang { grid-column: 2; grid-row: 2; align-self: start; }
-    .mast-id { flex-direction: row; justify-content: space-between; align-items: center; width: 100%; }
+    .mast-id { grid-column: 1; grid-row: 1; gap: 0.35rem; }
+    .mast-lang { grid-column: 2; grid-row: 1; align-self: center; }
+    .mast-menu { grid-column: 1 / 3; grid-row: 2; }
     .brand { margin: 0; }
-    .mast-id .mono-s { text-align: right; font-size: 0.62rem; }
+    .mast-id .mono-s { font-size: 0.62rem; line-height: 1.5; }
     .mast-menu { flex-direction: row; flex-wrap: wrap; gap: 0.2rem 1.1rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.7rem; }
     .mast-menu .label { display: none; }
     .mast-menu a { font-size: 1.1rem; gap: 0.4rem; }
     .mast-menu kbd { display: none; }
     .view { padding-top: 2rem; }
-    .view-home { display: block; }
-    /* pet, sentence, then the card and the blog side by side */
-    .home { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 2.4rem 1rem; }
-    .pet { grid-column: 1 / 3; grid-row: 1; margin-top: 0; }
-    .egg { width: min(78vw, 340px); }
-    .headline { grid-column: 1 / 3; grid-row: 2; font-size: clamp(2.2rem, 10vw, 3rem); white-space: normal; }
-    .tossed { grid-column: 1 / 3; grid-row: 3; justify-self: center; align-self: start; width: min(80%, 320px); margin: 0.6rem 0 3rem; transform: rotate(-5deg); }
+    .view-home { padding-top: 1rem; }
+    /* pet, sentence, then the card: the sentence has to make the first screen */
+    .home { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; gap: 1.2rem; }
+    .pet { grid-column: 1; }
+    .egg { width: min(64vw, 280px); max-height: 50svh; max-width: calc(50svh * 0.818); }
+    .headline { grid-column: 1; font-size: clamp(2.2rem, 10vw, 3rem); white-space: normal; }
+    .tossed { grid-column: 1; grid-row: 3; justify-self: center; align-self: start; width: min(80%, 320px); margin: 2rem 0 3rem; transform: rotate(-5deg); }
     /* taller than the screen: centring would push the top out of scroll reach */
     .qsl-dialog[open] { grid-template-columns: minmax(0, 1fr); align-items: start; align-content: start; }
     .qsl-dialog { padding-top: 64px; }
     .qsl-dialog-card { padding: 0 6px; }
-    .dialog-close { top: 1.2rem; }
+    /* a bar with paper under it, so the text scrolls behind it and not through it */
+    .dialog-close { top: 0; left: 0; right: 0; z-index: 2; padding: 1.2rem var(--gut) 0.9rem; text-align: right; background: var(--paper); }
+    .pet-close { background: none; }    /* nothing scrolls under the egg */
+    /* long centred paragraphs are hard to read on a phone */
+    .me-text > p { text-align: left; }
+    .ichthys { width: 170px; margin-top: 2rem; }
     .links a { grid-template-columns: 1fr auto; }
     .links .mono-s { grid-row: 2; word-break: break-all; }
     .links .go { grid-row: 1 / 3; grid-column: 2; }
     .foot-keys { display: none; }
+}
+
+/* ---------- touch ---------- */
+@media (pointer: coarse) {
+    /* the drawn buttons are ~26px wide: give the finger more to hit */
+    .egg-key::before { content: ""; position: absolute; inset: -8px; border-radius: 50%; }
+}
+@media (hover: none) {
+    .pet-hint { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

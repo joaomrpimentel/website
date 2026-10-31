@@ -73,8 +73,24 @@
         'pet-score': 'Placar {s}. Recorde {b}.',
     };
 
+    // no mouse, no clicking and no esc key
+    const TOUCH = {
+        pt: {
+            'links-sub': 'toque no email pra copiar.',
+            'close-l': 'fechar',
+            'qsl-hint': '✎ toque em <b>TO RADIO</b> e escreva seu indicativo ou nome',
+        },
+        en: {
+            'links-sub': 'the email copies itself when you tap it.',
+            'close-l': 'close',
+            'qsl-hint': '✎ tap <b>TO RADIO</b> and write your call or name',
+        },
+    };
+    const touch = window.matchMedia('(hover: none)').matches;
+
     // the portuguese comes from the page itself
-    const PT = { ...PT_JS };
+    const PT = { ...PT_JS, ...(touch ? TOUCH.pt : {}) };
+    if (touch) Object.assign(EN, TOUCH.en);
     const nodes = {
         html: [...document.querySelectorAll('[data-i18n]')],
         aria: [...document.querySelectorAll('[data-i18n-aria]')],
